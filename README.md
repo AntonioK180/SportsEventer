@@ -11,3 +11,5 @@ Information for an event:
   - price per person
   - short description (not mandatory)
 
+! [Image of Sport Enthusiasts] (https://github.com/AntonioK180/SportsEventer/tree/master/images/sportseventer.jpg)
+

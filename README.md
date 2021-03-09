@@ -2,9 +2,9 @@
 
 ### SportsEventer is a website which connects unprofessional sports enthusiasts for the sole purpose of doing what they love! It gives you the ability to create and join different sports events.
 
-### Information for an event:
+### Information about an event:
   - sport
-  - people confirmed
+  - people participating
   - people needed
   - date & time
   - location
@@ -13,3 +13,54 @@
 
 ![Image of Sport Enthusiasts](/images/sportseventer.jpg)
 
+
+
+### Technologies Used:
+  - Python & Flask
+  - HTML & CSS
+  - Javscript
+  
+
+### Managment:
+  - GitHub Flow
+  - Kanban (Link to Kanbanaize Board: https://elsysp8.kanbanize.com/ctrl_board/3)
+  - Mandatory Code Reviews Before Merging
+  - Stand up Meetings for Better Control of the Actual Workflow (2-5 per week)
+
+### First Milestone:
+  1. Events System:
+    - Create an event
+    - Edit/Delete YOUR events
+    - View details for OTHERS' events
+    - Supporting the following 3 sports: football, table tennis, basketball
+  2. Create an Account:
+    - Secure registration & login
+    - Edit profile information
+  3. Setup the Logging System
+  
+### Second Milestone:
+  1. Advanced searching filters
+  2. Requesting/Approving a person to an event (In order to join an event, you must request to join and then be accepted by the event's organizer)
+  3.  Events Chat
+    - Chat with the event's organizer
+    - View all of your chats
+  4. My Profile Page
+    - Displaying my information and events, that I am related to
+  5. Basic UI
+    - usable buttons and text boxes
+    - dropdown menus where needed
+  
+### Third Milestone:
+  1. Polishing the UI
+  2. Automation Tests
+  3. Email Notifications:
+    - for profile verification
+    - for event joining (either you got approved or rejected)
+    - for messages in the chat
+  
+### Optional:
+  1. Admin Role (Controling Events)
+  2. Reviews System
+    - Marking if someone doesn't show up to an event or is late
+  3. Creating Tournament Events
+  4. Forgotten Password Option

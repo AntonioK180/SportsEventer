@@ -12,7 +12,8 @@
   - price per person
   - short description (not mandatory)
 
-![Image of Sport Enthusiasts](/images/sportseventer.jpg)
+This is a visual representation of how the site should look:
+![Image of the UI](/images/UI_Goal.jpg)
 
 
 
@@ -20,6 +21,7 @@
   - Python & Flask
   - HTML & CSS
   - Javscript
+  - MySQL
   
 
 ### Managment:
@@ -58,6 +60,7 @@
 	 - for profile verification
 	 - for event joining (either you got approved or rejected)
 	 - for messages in the chat
+  4. Calendar
   
 ### Optional:
   1. Admin Role (Controling Events)
@@ -65,3 +68,4 @@
 	 - Marking if someone doesn't show up to an event or is late
   3. Creating Tournament Events
   4. Forgotten Password Option
+  5. Making the Calendar Feature "Interactive"

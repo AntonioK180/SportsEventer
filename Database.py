@@ -1,21 +1,13 @@
-import mysql.connector
-
-mydb = mysql.connector.connect(
-	host = "",
-	user = "",
-	password = "",
-	database = "SportsEventer"
-)
-
-mycursor = mydb.cursor()
+from flask_mysqldb import MySQL
+from app import mysql
 
 
-mycursor.execute('''
+
+cur = mysql.connection.cursor()
+
+cur.execute('''
 	CREATE TABLE Users(
-		id int Primary Key not null auto_increment,
-		email tinytext,
-		username tinytext,
-		password tinytext
-	)
+		id INT PRIMARY KEY auto_increment,
+		username VARCHAR(30)
+	);
 ''')
-

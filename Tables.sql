@@ -9,7 +9,7 @@ CREATE TABLE Users(
 
 CREATE TABLE Event(
 	id int Primary Key not null auto_increment,
-	user_id int,
+	user_id int not null,
 	sport enum('Football', 'Tennis', 'Basketball', 'Volleyball', 'Table Tennis'),
 	people_part int,
 	people_needed int,
@@ -18,7 +18,6 @@ CREATE TABLE Event(
 	location_lng double(7, 4),
 	price double(8, 2),
 	description mediumtext,
-	user_id int not null,
 	FOREIGN_KEY (user_id) REFERENCES Users(id),
 	CHECK (people_part > 0),
 	CHECK (people_needed >= 0),

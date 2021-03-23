@@ -1,0 +1,21 @@
+<html>
+    <head>
+        <title>Create an Event</title>
+    </head>
+    <body>
+      <h1> Sports Eventer </h1>
+      <header>
+          <button type="button" onclick="window.location='/'">Home</button>
+      </header>
+      <form action="/newEvent" method="post">
+          <label>Sport:</label>                 <input type="text" name="sport"><br>
+          <label>People participating:</label>  <input type="number" name="people_participating"><br>
+          <label>People needed:</label>         <input type="number" name="people_needed"><br>
+          <label>Date & Time:</label>           <input type="text" name="date_time"><br>
+          <label>Location:</label>              <input type="text" name="location"><br>
+          <label>Price per person:</label>      <input type="number" name="price"><br>
+          <label>Short description:</label>     <input type="text" name="description"><br><br>
+          <input type="submit" value="Submit">
+      </form>
+    </body>
+</html>

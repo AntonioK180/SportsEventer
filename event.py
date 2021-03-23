@@ -14,7 +14,10 @@ class Event():
 
     @staticmethod
     def all():
-        pass
+        cur = mydb.cursor()
+        cur.execute("SELECT * FROM Events")
+        result = cur.fetchall()
+        return [Event(*row) for row in result]
 
     def create(self):
         cur = mydb.cursor()

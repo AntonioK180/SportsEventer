@@ -9,5 +9,9 @@
         <a href="/login">Log In</a>
         <a href="/newEvent">Create an Event</a>
       </header>
+
+      {% for event in events %}
+        <p>{{ event.sport }}</p>
+      {% endfor %}
     </body>
 </html>

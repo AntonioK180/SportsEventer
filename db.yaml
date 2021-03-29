@@ -1,0 +1,4 @@
+mysql_host: 'localhost'
+mysql_user: 'dani'
+mysql_password: 'Levski_1914'
+mysql_db: 'SportsEventer'

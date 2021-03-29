@@ -21,5 +21,8 @@
       </div>
 
       <a href="/events/{{event.event_id}}/edit">Edit Event</a>
+      <form action="/events/{{event.event_id}}/delete" method="post">
+        <button type="submit">Delete Event</button>
+      </form>
     </body>
 </html>

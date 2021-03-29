@@ -43,13 +43,12 @@ def openEvent(event_id):
 
 
 @app.route('/events/<int:event_id>/edit', methods=['GET', 'POST'])
-def edit_event(event_id):
+def editEvent(event_id):
     event = Event.find(event_id)
     if request.method == 'GET':
 
         return render_template('edit_event.html' , event = event)
     elif request.method == 'POST':
-        event.sport = request.form['sport']
         event.people_participating = request.form['people_participating']
         event.people_needed = request.form['people_needed']
         event.date_time = request.form['date_time']
@@ -59,6 +58,13 @@ def edit_event(event_id):
         event.save()
 
         return redirect(url_for('openEvent', event_id = event.event_id))
+
+@app.route('/events/<int:event_id>/delete', methods=['POST'])
+def deleteEvent(event_id):
+    event = Event.find(event_id)
+    event.delete()
+
+    return redirect(url_for('home'))
 
 if __name__ == '__main__':
     app.run(debug=True)

@@ -46,7 +46,7 @@ class Event():
 
     def delete(self):
         cur = mydb.cursor()
-        query = "DELETE FROM Events WHERE event_id = %s"
-        value = (self.event_id)
+        query = "DELETE FROM Events WHERE id = %s"
+        value = (self.event_id,)
         cur.execute(query, value)
         mydb.commit()

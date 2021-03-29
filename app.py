@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for
 import logging
 from event import Event
+from user import User
 
 
 app = Flask(__name__)
@@ -12,12 +13,41 @@ def home():
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
-    return render_template('register.html')
+	if request.method == 'GET':
+		return render_template('register.html')
+	elif request.method == 'POST':
+		values = (
+			None,
+			request.form['email'],
+			request.form['username'],
+			User.hash_password(request.form['pwd'])
+		)
+		User(*values).create()
+		return redirect('/')
+
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
-    return render_template('login.html')
-
+	if request.method == 'GET':
+		return render_template('login.html')
+	elif request.method == 'POST':
+		user = request.form['user']
+		pwd = request.form['pwd']
+		username = User.get_user_by_username(user)
+		email = User.get_user_by_email(user)
+		if username is not None:
+			if username.verify_password(pwd) is True:
+				return redirect('/events')
+			else:
+				return redirect('/login')
+		elif email is not None:
+			if email.verify_passwoord(pwd) is True:
+				return redirect('/events')
+			else:
+				return redirect('/login')
+		else:
+			return redirect('/login')
+    
 @app.route('/newEvent', methods=['GET', 'POST'])
 def newEvent():
     if request.method == 'POST':

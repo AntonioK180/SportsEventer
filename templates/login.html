@@ -1,16 +1,18 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>Login</title>
-    </head>
-    <body>
-      <h1> Sports Eventer </h1>
-      <header>
-          <button type="button" onclick="window.location='/'">Home</button>
-      </header>
-      <form>
-          <label>Username:</label><input type="text"/><br>
-          <label>Password:</label><input type="password"/><br>
-      </form>
-    </body>
+	<head>
+		<title>Login</title>
+	</head>
+	<body>
+		<h1> Sports Eventer </h1>
+		<form action="/login" method="post">
+			<label>Email or username</label>
+			</br>			
+			<input name = "user" type = "text"/><br>
+			<label>Password</label>
+			</br>			
+			<input name = "pwd" type = "password"/><br>
+			<input type = "submit" name = "login_button" value = "Log in">
+		</form>
+	</body>
 </html>

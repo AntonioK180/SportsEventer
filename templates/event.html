@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Event</title>
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='home.css') }}">
+    </head>
+    <body>
+      <h1> Sports Eventer </h1>
+      <header>
+
+      </header>
+
+      <div>
+        <h3>Sport: {{event.sport}}</h3>
+        <p>Participating: {{event.people_participating}}</p>
+        <p>Free Places: {{event.people_needed}}</p>
+        <p>Date & Time: {{event.date_time}}</p>
+        <p>Location: {{event.location}}</p>
+        <p>Price per person: {{event.price}}</p>
+        <p>Description: {{event.description}}</p>
+      </div>
+
+      <a href="/events/{{event.event_id}}/edit">Edit Event</a>
+    </body>
+</html>

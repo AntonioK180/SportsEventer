@@ -3,6 +3,7 @@ from db_config import mydb
 
 cur = mydb.cursor()
 
+
 class Event():
     def __init__(self, event_id, sport, people_participating, people_needed, date_time, location, price, description):
         self.event_id = event_id
@@ -32,13 +33,15 @@ class Event():
 
     def create(self):
         query = "INSERT INTO Events (sport, people_participating, people_needed, date_time, location, price, description) VALUES (%s, %s, %s, %s, %s, %s, %s)"
-        value = (self.sport, self.people_participating, self.people_needed, self.date_time, self.location, self.price, self.description)
+        value = (self.sport, self.people_participating, self.people_needed,
+                 self.date_time, self.location, self.price, self.description)
         cur.execute(query, value)
         mydb.commit()
 
     def save(self):
         query = "UPDATE Events SET people_participating = %s, people_needed = %s, date_time = %s, location = %s, price = %s, description = %s WHERE id = %s"
-        value = (self.people_participating, self.people_needed, self.date_time, self.location, self.price, self.description, self.event_id)
+        value = (self.people_participating, self.people_needed, self.date_time,
+                 self.location, self.price, self.description, self.event_id)
         cur.execute(query, value)
         mydb.commit()
 

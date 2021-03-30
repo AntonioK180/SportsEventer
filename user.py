@@ -13,12 +13,16 @@ class User:
 		self.password = password
 
 	def create(self):
-		cursor.execute('INSERT INTO Users (email, username, pwd) VALUES (%s, %s, %s)', (self.email, self.username, self.password))
+		query = 'INSERT INTO Users (email, username, pwd) VALUES (%s, %s, %s)'
+		value = (self.email, self.username, self.password)
+		cursor.execute(query, value)
 		mydb.commit()
 		return 1
 
 	def get_user_by_username(username):
-		cursor.execute('SELECT * FROM Users WHERE username = "%s"', (username,))
+		query = 'SELECT * FROM Users WHERE username = %s'
+		value = (username,)
+		cursor.execute(query, value)
 		row = cursor.fetchone()
 		print(row)
 		if row is None:
@@ -27,10 +31,12 @@ class User:
 			return User(*row)
 
 	def get_user_by_email(email):
-		cursor.execute('SELECT * FROM Users WHERE email = "%s"', (email,))
+		query = 'SELECT * FROM Users WHERE email = %s'
+		value = (email,)
+		cursor.execute(query, value)
 		row = cursor.fetchone()
-		if row is None or False:
-			return None
+		if row is None or row is False:
+			return
 		else:
 			return User(*row)
 

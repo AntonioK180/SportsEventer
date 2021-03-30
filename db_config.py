@@ -25,7 +25,7 @@ for x in cur:
     print(x[0].decode())
 
 if events_check:
-    print("Events database exists.")
+    print("Events table exists.")
 else:
     cur.execute('''CREATE TABLE Events(
           id INT PRIMARY KEY auto_increment,

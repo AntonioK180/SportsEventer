@@ -47,7 +47,7 @@ def login():
 				return redirect('/login')
 		else:
 			return redirect('/login')
-    
+
 @app.route('/newEvent', methods=['GET', 'POST'])
 def newEvent():
     if request.method == 'POST':

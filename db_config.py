@@ -7,7 +7,8 @@ mydb = mysql.connector.connect(
     host=db['mysql_host'],
     user=db['mysql_user'],
     password=db['mysql_password'],
-    database="SportsEventer"
+    database="SportsEventer",
+    auth_plugin='mysql_native_password'
 )
 
 cur = mydb.cursor()
@@ -17,9 +18,11 @@ cur.execute("SHOW TABLES")
 events_check = 0
 users_check = 0
 for x in cur:
-    if x[0] == "Events":
+    if x[0].decode() == "Events":
         events_check = 1
-    print(x[0])
+    if x[0].decode() == "Users":
+        users_check = 1
+    print(x[0].decode())
 
 if events_check:
     print("Events database exists.")
@@ -32,5 +35,15 @@ else:
           date_time VARCHAR(50),
           location VARCHAR(150),
           price FLOAT,
-          description VARCHAR(300))
+          description VARCHAR(300));
         ''')
+
+if users_check:
+    print("Users table exists.")
+else:
+    cur.execute('''CREATE TABLE Users(
+	   id int Primary Key not null auto_increment,
+	   email tinytext not null,
+	   username tinytext not null,
+	   pwd tinytext not null);
+       ''')

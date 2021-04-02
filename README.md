@@ -36,13 +36,19 @@ This is a visual representation of how the site should look:
      - Edit/Delete YOUR events
      - View details for OTHERS' events
      - Supporting the following 3 sports: football, table tennis, basketball
+     - Supporting the following 4 sports: football, table tennis, basketball
+     - RESTful API for the CRUD operations
   2. Create an Account:
      - Secure registration & login
+     - Login sessions for a 'Keep me logged in' feature
      - Edit profile information
   3. Setup the Logging System
+     - Logging informational data for debugging
+     - Logging warnings and suspicous activities 
   
 ### Second Milestone:
   1. Advanced searching filters
+     - Be able to sort the events by: location, sport, price and others.
   2. Requesting/Approving a person to an event (In order to join an event, you must request to join and then be accepted by the event's organizer)
   3.  Events Chat
       - Chat with the event's organizer
@@ -50,8 +56,8 @@ This is a visual representation of how the site should look:
   4. My Profile Page
      - Displaying my information and events, that I am related to
   5. Basic UI
-	 - usable buttons and text boxes
-	 - dropdown menus where needed
+     - usable buttons and text boxes
+     - dropdown menus where needed
   
 ### Third Milestone:
   1. Polishing the UI

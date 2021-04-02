@@ -12,3 +12,10 @@ CREATE TABLE Events(
   price FLOAT,
   description VARCHAR(300)
 );
+
+CREATE TABLE Users(
+  id int Primary Key not null auto_increment,
+  email tinytext not null,
+  username tinytext not null,
+  pwd tinytext not null
+);

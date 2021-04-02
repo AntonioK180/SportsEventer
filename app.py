@@ -42,16 +42,13 @@ def login():
         email = User.get_user_by_email(user)
         if username is not None:
             if username.verify_password(pwd) is True:
+                app.logger.info("A user successfully logged in.")
+
                 return redirect('/')
             else:
+                app.logger.info("A user provided wrong username & password combination.")
+
                 return redirect('/login')
-        elif email is not None:
-            if email.verify_passwoord(pwd) is True:
-                return redirect('/')
-            else:
-                return redirect('/login')
-        else:
-            return redirect('/login')
 
 
 @app.route('/newEvent', methods=['GET', 'POST'])
@@ -68,6 +65,7 @@ def newEvent():
         new_event = Event(None, sport, people_participating,
                           people_needed, date_time, location, price, description)
         new_event.create()
+        app.logger.info("An event was successfully created.")
 
     return render_template('newEvent.html')
 
@@ -93,6 +91,7 @@ def editEvent(event_id):
         event.price = request.form['price']
         event.description = request.form['description']
         event.save()
+        app.logger.info("An event was successfully edited.")
 
         return redirect(url_for('openEvent', event_id=event.event_id))
 

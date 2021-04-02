@@ -20,6 +20,8 @@ class User:
         mydb.commit()
         return 1
 
+
+
     def get_user_by_username(username):
         query = 'SELECT * FROM Users WHERE username = %s'
         value = (username,)

@@ -35,6 +35,7 @@ This is a visual representation of how the site should look:
      - Create an event
      - Edit/Delete YOUR events
      - View details for OTHERS' events
+     - Supporting the following 3 sports: football, table tennis, basketball
      - Supporting the following 4 sports: football, table tennis, basketball
      - RESTful API for the CRUD operations
   2. Create an Account:

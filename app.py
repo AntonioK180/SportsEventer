@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, session
 import logging
 from event import Event
 from user import User
@@ -6,13 +6,15 @@ from user import User
 
 app = Flask(__name__)
 logging.basicConfig(level=logging.DEBUG)
+app.config['SECRET_KEY'] = 'bigsecreet'
 
 
 @app.route('/')
 def home():
-    app.logger.info("Running...")
-
-    return render_template('home.html', events=Event.all())
+	app.logger.info("Running...")
+	if 'loggedin' in session:
+		return render_template('home.html', events=Event.all(), loggedin = True)
+	return render_template('home.html', events=Event.all(), loggedin = False)
 
 
 @app.route('/register', methods=['GET', 'POST'])
@@ -27,8 +29,8 @@ def register():
             User.hash_password(request.form['pwd'])
         )
         User(*values).create()
-    app.logger.info("Successfully registered a new user!")
-    return redirect('/')
+        app.logger.info("Successfully registered a new user!")
+        return redirect('/')
 
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -42,14 +44,34 @@ def login():
         email = User.get_user_by_email(user)
         if username is not None:
             if username.verify_password(pwd) is True:
-                app.logger.info("A user successfully logged in.")
-
+                session['loggedin'] = True
+                session['id'] = username.user_id
+                session['username'] = username.username
+                app.logger.info("Successfully logged in!")
                 return redirect('/')
             else:
-                app.logger.info("A user provided wrong username & password combination.")
-
+                app.logger.info("Wrong password!")
                 return redirect('/login')
+        elif email is not None:
+            if email.verify_passwoord(pwd) is True:
+                session['loggedin'] = True
+                session['id'] = username.id
+                session['username'] = username.username
+                app.logger.info("Successfully logged in!")
+                return redirect('/')
+            else:
+                app.logger.info("Wrong password!")
+                return redirect('/login')
+        else:
+            return redirect('/login')
 
+
+@app.route('/logout')
+def logout():
+	session.pop('loggedin', None)
+	session.pop('id', None)
+	session.pop('username', None)
+	return redirect('/')
 
 @app.route('/newEvent', methods=['GET', 'POST'])
 def newEvent():
@@ -65,7 +87,6 @@ def newEvent():
         new_event = Event(None, sport, people_participating,
                           people_needed, date_time, location, price, description)
         new_event.create()
-        app.logger.info("An event was successfully created.")
 
     return render_template('newEvent.html')
 
@@ -91,7 +112,6 @@ def editEvent(event_id):
         event.price = request.form['price']
         event.description = request.form['description']
         event.save()
-        app.logger.info("An event was successfully edited.")
 
         return redirect(url_for('openEvent', event_id=event.event_id))
 

@@ -6,8 +6,7 @@ from user import User
 
 app = Flask(__name__)
 logging.basicConfig(level=logging.DEBUG)
-app.sectret_key = 'super secret key'
-app.config['SESSION_TYPE'] = 'filesystem'
+app.config['SECRET_KEY'] = 'bigsecreet'
 
 
 @app.route('/')
@@ -46,7 +45,7 @@ def login():
         if username is not None:
             if username.verify_password(pwd) is True:
                 session['loggedin'] = True
-                session['id'] = username.id
+                session['id'] = username.user_id
                 session['username'] = username.username
                 app.logger.info("Successfully logged in!")
                 return redirect('/')
@@ -72,7 +71,7 @@ def logout():
 	session.pop('loggedin', None)
 	session.pop('id', None)
 	session.pop('username', None)
-	return redirect(url_for('login'))
+	return redirect('/')
 
 @app.route('/newEvent', methods=['GET', 'POST'])
 def newEvent():

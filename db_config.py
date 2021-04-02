@@ -18,11 +18,11 @@ cur.execute("SHOW TABLES")
 events_check = 0
 users_check = 0
 for x in cur:
-    if x[0].decode() == "Events":
+    if x[0] == "Events":
         events_check = 1
-    if x[0].decode() == "Users":
+    if x[0] == "Users":
         users_check = 1
-    print(x[0].decode())
+    print(x[0])
 
 if events_check:
     print("Events table exists.")

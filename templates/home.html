@@ -7,9 +7,16 @@
     <body>
       <h1> Sports Eventer </h1>
       <header>
-        <a href="/register">Register</a>
-        <a href="/login">Log In</a>
-        <a href="/newEvent">Create an Event</a>
+      {% block content %}
+          {% if loggedin == False %}
+              <a href="/register">Register</a>
+              <a href="/login">Log In</a>
+          {% else %}
+              <a href="/logout">Log out</a>
+              <a href="/myprofile">My Profile</a> 
+              <a href="/newEvent">Create an Event</a>
+          {% endif %}
+      {% endblock content %}
       </header>
 
       {% for event in events %}

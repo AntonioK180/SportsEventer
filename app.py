@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, session
 import logging
 from event import Event
 from user import User
@@ -6,13 +6,16 @@ from user import User
 
 app = Flask(__name__)
 logging.basicConfig(level=logging.DEBUG)
+app.sectret_key = 'super secret key'
+app.config['SESSION_TYPE'] = 'filesystem'
 
 
 @app.route('/')
 def home():
-    app.logger.info("Running...")
-
-    return render_template('home.html', events=Event.all())
+	app.logger.info("Running...")
+	if 'loggedin' in session:
+		return render_template('home.html', events=Event.all(), loggedin = True)
+	return render_template('home.html', events=Event.all(), loggedin = False)
 
 
 @app.route('/register', methods=['GET', 'POST'])
@@ -27,8 +30,8 @@ def register():
             User.hash_password(request.form['pwd'])
         )
         User(*values).create()
-    app.logger.info("Successfully registered a new user!")
-    return redirect('/')
+        app.logger.info("Successfully registered a new user!")
+        return redirect('/')
 
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -42,17 +45,34 @@ def login():
         email = User.get_user_by_email(user)
         if username is not None:
             if username.verify_password(pwd) is True:
+                session['loggedin'] = True
+                session['id'] = username.id
+                session['username'] = username.username
+                app.logger.info("Successfully logged in!")
                 return redirect('/')
             else:
+                app.logger.info("Wrong password!")
                 return redirect('/login')
         elif email is not None:
             if email.verify_passwoord(pwd) is True:
+                session['loggedin'] = True
+                session['id'] = username.id
+                session['username'] = username.username
+                app.logger.info("Successfully logged in!")
                 return redirect('/')
             else:
+                app.logger.info("Wrong password!")
                 return redirect('/login')
         else:
             return redirect('/login')
 
+
+@app.route('/logout')
+def logout():
+	session.pop('loggedin', None)
+	session.pop('id', None)
+	session.pop('username', None)
+	return redirect(url_for('login'))
 
 @app.route('/newEvent', methods=['GET', 'POST'])
 def newEvent():

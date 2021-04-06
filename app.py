@@ -11,10 +11,10 @@ app.config['SECRET_KEY'] = 'bigsecreet'
 
 @app.route('/')
 def home():
-	app.logger.info("Running...")
-	if 'loggedin' in session:
-		return render_template('home.html', events=Event.all(), loggedin = True)
-	return render_template('home.html', events=Event.all(), loggedin = False)
+    app.logger.info("Running...")
+    if 'loggedin' in session:
+        return render_template('home.html', events=Event.all(), loggedin=True)
+    return render_template('home.html', events=Event.all(), loggedin=False)
 
 
 @app.route('/register', methods=['GET', 'POST'])
@@ -68,14 +68,18 @@ def login():
 
 @app.route('/logout')
 def logout():
-	session.pop('loggedin', None)
-	session.pop('id', None)
-	session.pop('username', None)
-	return redirect('/')
+    session.pop('loggedin', None)
+    session.pop('id', None)
+    session.pop('username', None)
+    return redirect('/')
+
 
 @app.route('/newEvent', methods=['GET', 'POST'])
 def newEvent():
-    if request.method == 'POST':
+    if request.method == 'GET':
+
+        return render_template('newEvent.html')
+    elif request.method == 'POST':
         sport = request.form['sport']
         people_participating = request.form['people_participating']
         people_needed = request.form['people_needed']
@@ -88,14 +92,14 @@ def newEvent():
                           people_needed, date_time, location, price, description)
         new_event.create()
 
-    return render_template('newEvent.html')
+        return render_template(url_for('home'))
 
 
 @app.route('/events/<int:event_id>')
 def openEvent(event_id):
     event = Event.find(event_id)
 
-    return render_template('event.html', event=event)
+    return render_template('event.html', event=event), 200
 
 
 @app.route('/events/<int:event_id>/edit', methods=['GET', 'POST'])

@@ -3,7 +3,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from db_config import mydb
 
 
-cursor = mydb.cursor()
+cursor = mydb.cursor(buffered=True)
 
 
 class User:

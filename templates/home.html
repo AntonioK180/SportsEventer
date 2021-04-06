@@ -3,6 +3,8 @@
     <head>
         <title>Home</title>
         <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='home.css') }}">
+        <script language="javascript" type="text/javascript" src="/static/js/jquery.js"></script>
+        <script src='/static/js/experiment.js'></script>
     </head>
     <body>
       <h1> Sports Eventer </h1>
@@ -13,7 +15,7 @@
               <a href="/login">Log In</a>
           {% else %}
               <a href="/logout">Log out</a>
-              <a href="/myprofile">My Profile</a> 
+              <a href="/myprofile">My Profile</a>
               <a href="/newEvent">Create an Event</a>
           {% endif %}
       {% endblock content %}

@@ -53,7 +53,7 @@ def login():
                 app.logger.info("Wrong password!")
                 return redirect('/login')
         elif email is not None:
-            if email.verify_passwoord(pwd) is True:
+            if email.verify_password(pwd) is True:
                 session['loggedin'] = True
                 session['id'] = username.id
                 session['username'] = username.username
@@ -73,6 +73,11 @@ def logout():
     session.pop('username', None)
     return redirect('/')
 
+@app.route('/myProfile')
+def myProfile():
+    currentUser = User.get_user_by_username(session['username'])
+    return render_template('myProfile.html', user=currentUser)
+
 
 @app.route('/newEvent', methods=['GET', 'POST'])
 def newEvent():
@@ -83,16 +88,17 @@ def newEvent():
         sport = request.form['sport']
         people_participating = request.form['people_participating']
         people_needed = request.form['people_needed']
-        date_time = request.form['date_time']
+        date = request.form['date']
+        time = request.form['time']
         location = request.form['location']
         price = request.form['price']
         description = request.form['description']
 
-        new_event = Event(None, sport, people_participating,
-                          people_needed, date_time, location, price, description)
+        new_event = Event(None, session['username'], sport, people_participating,
+                          people_needed, date, time, location, price, description)
         new_event.create()
 
-        return render_template(url_for('home'))
+        return redirect('/')
 
 
 @app.route('/events/<int:event_id>')
@@ -109,23 +115,30 @@ def editEvent(event_id):
 
         return render_template('edit_event.html', event=event)
     elif request.method == 'POST':
-        event.people_participating = request.form['people_participating']
-        event.people_needed = request.form['people_needed']
-        event.date_time = request.form['date_time']
-        event.location = request.form['location']
-        event.price = request.form['price']
-        event.description = request.form['description']
-        event.save()
+        if event.created_by == session['username']:
+            event.people_participating = request.form['people_participating']
+            event.people_needed = request.form['people_needed']
+            event.date = request.form['date']
+            event.time = request.form['time']
+            event.location = request.form['location']
+            event.price = request.form['price']
+            event.description = request.form['description']
+            event.save()
 
-        return redirect(url_for('openEvent', event_id=event.event_id))
+            return redirect(url_for('openEvent', event_id=event.event_id))
+        else:
+            print("You can't edit others' events!")
+            return redirect('/')
 
 
 @app.route('/events/<int:event_id>/delete', methods=['POST'])
 def deleteEvent(event_id):
     event = Event.find(event_id)
-    event.delete()
-
-    return redirect(url_for('home'))
+    if event.created_by == session['username']:
+        event.delete()
+    else:
+        print("You can't delete others' events!")
+    return redirect('/')
 
 
 if __name__ == '__main__':

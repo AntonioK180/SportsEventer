@@ -28,11 +28,13 @@ if events_check:
     print("Events table exists.")
 else:
     cur.execute('''CREATE TABLE Events(
-          id INT PRIMARY KEY auto_increment,
+          event_id INT PRIMARY KEY auto_increment,
+          created_by VARCHAR(40) NOT NULL,
           sport VARCHAR(15),
           people_participating INT,
           people_needed INT,
-          date_time VARCHAR(50),
+          event_date VARCHAR(50),
+          event_time VARCHAR(30),
           location VARCHAR(150),
           price FLOAT,
           description VARCHAR(300));

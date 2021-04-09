@@ -19,6 +19,18 @@
       {% endblock content %}
       </header>
 
+
+      {% with messages = get_flashed_messages() %}
+        {% if messages %}
+          <ul class=flashes>
+            {% for message in messages %}
+              <li>{{ message }}</li>
+            {% endfor %}
+          </ul>
+        {% endif %}
+      {% endwith %}
+
+
       {% for event in events %}
       <div id="event">
         <h3>{{event.created_by}}'s {{event.sport}} event</h3>

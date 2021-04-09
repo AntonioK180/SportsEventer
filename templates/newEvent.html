@@ -8,6 +8,17 @@
       <header>
           <button type="button" onclick="window.location='/'">Home</button>
       </header>
+
+      {% with messages = get_flashed_messages() %}
+        {% if messages %}
+          <ul class=flashes>
+            {% for message in messages %}
+              <li>{{ message }}</li>
+            {% endfor %}
+          </ul>
+        {% endif %}
+      {% endwith %}
+
       <form action="/newEvent" method="post">
           <label>Sport:</label>
           <select name="sport">
@@ -16,12 +27,12 @@
             <option value="volleyball">Volleyball</option>
             <option value="tennis">Tennis</option>
           </select><br>
-          <label>People participating:</label>  <input type="number" name="people_participating" required><br>
-          <label>People needed:</label>         <input type="number" name="people_needed" required><br>
+          <label>People participating:</label>  <input type="number" name="people_participating" class="req" required><br>
+          <label>People needed:</label>         <input type="number" name="people_needed" class="req" required><br>
           <label>Date:</label>                  <input type="date" name="date"><br>
-          <label>Time:</label>                  <input type="time" name="time"><br>
-          <label>Location:</label>              <input type="text" name="location"><br>
-          <label>Price per person:</label>      <input type="number" name="price" required><br>
+          <label>Time:</label>                  <input type="time" name="time" ><br>
+          <label>Location:</label>              <input type="text" name="location" class="req" required><br>
+          <label>Price per person:</label>      <input type="number" name="price" class="req" required><br>
           <label>Short description:</label>     <input type="text" name="description"><br><br>
           <input type="submit" value="Submit">
       </form>

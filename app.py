@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, session
+from flask import Flask, render_template, request, redirect, url_for, session, flash
 import logging
 from event import Event
 from user import User
@@ -50,7 +50,8 @@ def login():
                 app.logger.info("Successfully logged in!")
                 return redirect('/')
             else:
-                app.logger.info("Wrong password!")
+                app.logger.info("Incorrect password!")
+                flash("This is an incorrect password!")
                 return redirect('/login')
         elif email is not None:
             if email.verify_password(pwd) is True:
@@ -63,6 +64,7 @@ def login():
                 app.logger.info("Wrong password!")
                 return redirect('/login')
         else:
+            flash("Incorrect username!")
             return redirect('/login')
 
 
@@ -97,7 +99,6 @@ def newEvent():
         new_event = Event(None, session['username'], sport, people_participating,
                           people_needed, date, time, location, price, description)
         new_event.create()
-
         return redirect('/')
 
 

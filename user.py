@@ -21,7 +21,7 @@ class User:
         return 1
 
 
-
+    @staticmethod
     def get_user_by_username(username):
         query = 'SELECT * FROM Users WHERE username = %s'
         value = (username,)
@@ -33,6 +33,7 @@ class User:
         else:
             return User(*row)
 
+    @staticmethod
     def get_user_by_email(email):
         query = 'SELECT * FROM Users WHERE email = %s'
         value = (email,)

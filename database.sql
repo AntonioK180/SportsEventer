@@ -8,7 +8,8 @@ CREATE TABLE Events(
   sport VARCHAR(15),
   people_participating INT,
   people_needed INT,
-  date_time VARCHAR(50),
+  event_date VARCHAR(50),
+  event_time VARCHAR(30),
   location VARCHAR(150),
   price FLOAT,
   description VARCHAR(300)

@@ -88,11 +88,12 @@ def newEvent():
         price = request.form['price']
         description = request.form['description']
 
-        new_event = Event(None, sport, people_participating,
+        print("This is the username:" + session['username'])
+        new_event = Event(None, session['username'], sport, people_participating,
                           people_needed, date_time, location, price, description)
         new_event.create()
 
-        return render_template(url_for('home'))
+        return redirect('/')
 
 
 @app.route('/events/<int:event_id>')

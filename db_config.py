@@ -28,7 +28,8 @@ if events_check:
     print("Events table exists.")
 else:
     cur.execute('''CREATE TABLE Events(
-          id INT PRIMARY KEY auto_increment,
+          event_id INT PRIMARY KEY auto_increment,
+          created_by VARCHAR(40) NOT NULL,
           sport VARCHAR(15),
           people_participating INT,
           people_needed INT,

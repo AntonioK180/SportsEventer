@@ -3,7 +3,8 @@ CREATE DATABASE SportsEventer;
 USE SportsEventer;
 
 CREATE TABLE Events(
-  id INT PRIMARY KEY auto_increment,
+  event_id INT PRIMARY KEY auto_increment,
+  created_by VARCHAR(40) NOT NULL,
   sport VARCHAR(15),
   people_participating INT,
   people_needed INT,
@@ -14,7 +15,7 @@ CREATE TABLE Events(
 );
 
 CREATE TABLE Users(
-  id int Primary Key not null auto_increment,
+  user_id int Primary Key not null auto_increment,
   email tinytext not null,
   username tinytext not null,
   pwd tinytext not null

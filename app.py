@@ -40,6 +40,8 @@ def login():
     elif request.method == 'POST':
         user = request.form['user']
         pwd = request.form['pwd']
+        toRemember = request.form.getlist('remember_user')
+        app.logger.info(toRemember)
         username = User.get_user_by_username(user)
         email = User.get_user_by_email(user)
         if username is not None:
@@ -47,6 +49,10 @@ def login():
                 session['loggedin'] = True
                 session['id'] = username.user_id
                 session['username'] = username.username
+                if toRemember:
+                    session.permanent = True
+                else:
+                    session.permanent = False
                 app.logger.info("Successfully logged in!")
                 return redirect('/')
             else:

@@ -27,7 +27,6 @@ class User:
         value = (username,)
         cursor.execute(query, value)
         row = cursor.fetchone()
-        print(row)
         if row is None:
             return
         else:
@@ -39,7 +38,6 @@ class User:
         value = (user_id,)
         cursor.execute(query, value)
         row = cursor.fetchone()
-        print(row)
         if row is None:
             return
         else:

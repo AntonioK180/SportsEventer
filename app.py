@@ -112,11 +112,11 @@ def openEvent(event_id):
 @app.route('/events/<int:event_id>/edit', methods=['GET', 'POST'])
 def editEvent(event_id):
     event = Event.find(event_id)
-    if request.method == 'GET':
+    if event.created_by == session['username']:
+        if request.method == 'GET':
 
-        return render_template('edit_event.html', event=event)
-    elif request.method == 'POST':
-        if event.created_by == session['username']:
+            return render_template('editEvent.html', event=event)
+        elif request.method == 'POST':
             event.people_participating = request.form['people_participating']
             event.people_needed = request.form['people_needed']
             event.date = request.form['date']
@@ -127,9 +127,10 @@ def editEvent(event_id):
             event.save()
 
             return redirect(url_for('openEvent', event_id=event.event_id))
-        else:
-            print("You can't edit others' events!")
-            return redirect('/')
+
+    else:
+        flash("You can't edit other's events!")
+        return redirect(url_for('openEvent', event_id = event.event_id))
 
 
 @app.route('/events/<int:event_id>/delete', methods=['POST'])
@@ -138,7 +139,8 @@ def deleteEvent(event_id):
     if event.created_by == session['username']:
         event.delete()
     else:
-        print("You can't delete others' events!")
+        flash("You can't delete others' events!");
+        return redirect(url_for('openEvent', event_id = event.event_id))
     return redirect('/')
 
 

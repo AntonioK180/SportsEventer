@@ -1,0 +1,8 @@
+label, input{
+  display: inline-block;
+  vertical-align: baseline;
+}
+
+form{
+  width: 700px;
+}

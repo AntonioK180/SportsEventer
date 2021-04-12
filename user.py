@@ -34,6 +34,18 @@ class User:
             return User(*row)
 
     @staticmethod
+    def get_user_by_id(user_id):
+        query = 'SELECT * FROM Users WHERE user_id = %s'
+        value = (user_id,)
+        cursor.execute(query, value)
+        row = cursor.fetchone()
+        print(row)
+        if row is None:
+            return
+        else:
+            return User(*row)
+
+    @staticmethod
     def get_user_by_email(email):
         query = 'SELECT * FROM Users WHERE email = %s'
         value = (email,)

@@ -75,10 +75,19 @@ def logout():
     session.pop('username', None)
     return redirect('/')
 
+
 @app.route('/myProfile')
 def myProfile():
     currentUser = User.get_user_by_username(session['username'])
+
     return render_template('myProfile.html', user=currentUser)
+
+
+@app.route('/myProfile/<int:user_id>/edit')
+def editProfile(user_id):
+    user = User.get_user_by_id(user_id)
+
+    return render_template('editProfile.html')
 
 
 @app.route('/newEvent', methods=['GET', 'POST'])

@@ -5,12 +5,22 @@
 	</head>
 	<body>
 		<h1> Sports Eventer </h1>
+
+		{% with messages = get_flashed_messages() %}
+			{% if messages %}
+				{% for message in messages %}
+					<p class="message">{{message}}</p>
+				{% endfor %}
+			{% endif %}
+		{% endwith %}
+
+
 		<form action="/login" method="post">
 			<label>Email or username</label>
-			</br>			
+			</br>
 			<input name = "user" type = "text"/><br>
 			<label>Password</label>
-			</br>			
+			</br>
 			<input name = "pwd" type = "password"/><br>
 			<input type = "submit" name = "login_button" value = "Log in">
 		</form>

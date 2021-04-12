@@ -2,28 +2,42 @@
 <html>
     <head>
         <title>Event</title>
-        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='home.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='event.css') }}">
     </head>
     <body>
       <h1> Sports Eventer </h1>
       <header>
-
+        <button type="button" onclick="window.location='/'">Home</button>
       </header>
+
+      {% with messages = get_flashed_messages() %}
+        {% if messages %}
+          <ul class=flashes>
+            {% for message in messages %}
+              <li>{{ message }}</li>
+            {% endfor %}
+          </ul>
+        {% endif %}
+      {% endwith %}
+
 
       <div>
         <h3>{{event.created_by}}'s {{event.sport}} event</h3>
-        <p>Participating: {{event.people_participating}}</p>
-        <p>Free Places: {{event.people_needed}}</p>
-        <p>Date: {{event.date}}</p>
-        <p>Time: {{event.time}}</p>
-        <p>Location: {{event.location}}</p>
-        <p>Price per person: {{event.price}}</p>
-        <p>Description: {{event.description}}</p>
+        <p><u>Participating:</u> {{event.people_participating}}</p>
+        <p><u>Free Places:</u> {{event.people_needed}}</p>
+        <p><u>Date:</u> {{event.date}}</p>
+        <p><u>Time:</u> {{event.time}}</p>
+        <p><u>Location:</u> {{event.location}}</p>
+        <p><u>Price per person:</u> {{event.price}}</p>
+        <p><u>Description:</u> {{event.description}}</p>
       </div>
 
-      <a href="/events/{{event.event_id}}/edit">Edit Event</a>
-      <form action="/events/{{event.event_id}}/delete" method="post">
-        <button type="submit">Delete Event</button>
-      </form>
+      <div id="bottomNavigation">
+        <a href="/events/{{event.event_id}}/edit">Edit Event</a>
+        <form action="/events/{{event.event_id}}/delete" method="post">
+          <button type="submit">Delete Event</button>
+        </form>
+      </div>
+
     </body>
 </html>

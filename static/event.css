@@ -1,0 +1,32 @@
+#bottomNavigation{
+  width: 250px;
+}
+
+#bottomNavigation > form{
+  float: right;
+}
+
+#bottomNavigation > a{
+  float: left;
+  font-family: sans-serif;
+  text-decoration: none;
+  font-weight: bolder;
+  color: black;
+  border-radius: 12px;
+  border: 2px solid #db8b72;
+  background-color: #f0ac97;
+  padding: 5px;
+}
+
+#bottomNavigation > a:hover{
+  color: #f0ac97;
+  background-color: black;
+}
+
+h1{
+  font-family: 'Brush Script MT', cursive;
+  margin-bottom: 40px;
+  padding-bottom: 5px;
+  padding-left: 10px;
+  border-bottom: 3px solid blue;
+}

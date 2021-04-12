@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Home</title>
+        <title>My Profile</title>
     </head>
     <body>
       <h1> Sports Eventer </h1>
       <header>
+        <button type="button" onclick="window.location='/'">Home</button>
+        <a href="/myProfile/{{user.user_id}}/edit">Edit Profile</a>
         <h2>Hello, {{user.username}}!</h2>
       </header>
 

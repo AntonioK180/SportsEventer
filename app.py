@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, session
+from flask import Flask, render_template, request, redirect, url_for, session, flash
 import logging
 from event import Event
 from user import User
@@ -41,7 +41,6 @@ def login():
         user = request.form['user']
         pwd = request.form['pwd']
         username = User.get_user_by_username(user)
-        email = User.get_user_by_email(user)
         if username is not None:
             if username.verify_password(pwd) is True:
                 session['loggedin'] = True
@@ -50,19 +49,11 @@ def login():
                 app.logger.info("Successfully logged in!")
                 return redirect('/')
             else:
-                app.logger.info("Wrong password!")
-                return redirect('/login')
-        elif email is not None:
-            if email.verify_password(pwd) is True:
-                session['loggedin'] = True
-                session['id'] = username.id
-                session['username'] = username.username
-                app.logger.info("Successfully logged in!")
-                return redirect('/')
-            else:
-                app.logger.info("Wrong password!")
+                app.logger.info("Incorrect password!")
+                flash("This is an incorrect password!")
                 return redirect('/login')
         else:
+            flash("Incorrect username!")
             return redirect('/login')
 
 
@@ -73,10 +64,19 @@ def logout():
     session.pop('username', None)
     return redirect('/')
 
+
 @app.route('/myProfile')
 def myProfile():
     currentUser = User.get_user_by_username(session['username'])
+
     return render_template('myProfile.html', user=currentUser)
+
+
+@app.route('/myProfile/<int:user_id>/edit')
+def editProfile(user_id):
+    user = User.get_user_by_id(user_id)
+
+    return render_template('editProfile.html')
 
 
 @app.route('/newEvent', methods=['GET', 'POST'])
@@ -97,7 +97,6 @@ def newEvent():
         new_event = Event(None, session['username'], sport, people_participating,
                           people_needed, date, time, location, price, description)
         new_event.create()
-
         return redirect('/')
 
 
@@ -111,11 +110,11 @@ def openEvent(event_id):
 @app.route('/events/<int:event_id>/edit', methods=['GET', 'POST'])
 def editEvent(event_id):
     event = Event.find(event_id)
-    if request.method == 'GET':
+    if event.created_by == session['username']:
+        if request.method == 'GET':
 
-        return render_template('edit_event.html', event=event)
-    elif request.method == 'POST':
-        if event.created_by == session['username']:
+            return render_template('editEvent.html', event=event)
+        elif request.method == 'POST':
             event.people_participating = request.form['people_participating']
             event.people_needed = request.form['people_needed']
             event.date = request.form['date']
@@ -126,9 +125,10 @@ def editEvent(event_id):
             event.save()
 
             return redirect(url_for('openEvent', event_id=event.event_id))
-        else:
-            print("You can't edit others' events!")
-            return redirect('/')
+
+    else:
+        flash("You can't edit other's events!")
+        return redirect(url_for('openEvent', event_id = event.event_id))
 
 
 @app.route('/events/<int:event_id>/delete', methods=['POST'])
@@ -137,7 +137,8 @@ def deleteEvent(event_id):
     if event.created_by == session['username']:
         event.delete()
     else:
-        print("You can't delete others' events!")
+        flash("You can't delete others' events!");
+        return redirect(url_for('openEvent', event_id = event.event_id))
     return redirect('/')
 
 

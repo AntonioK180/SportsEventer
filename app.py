@@ -41,7 +41,6 @@ def login():
         user = request.form['user']
         pwd = request.form['pwd']
         username = User.get_user_by_username(user)
-        email = User.get_user_by_email(user)
         if username is not None:
             if username.verify_password(pwd) is True:
                 session['loggedin'] = True
@@ -52,16 +51,6 @@ def login():
             else:
                 app.logger.info("Incorrect password!")
                 flash("This is an incorrect password!")
-                return redirect('/login')
-        elif email is not None:
-            if email.verify_password(pwd) is True:
-                session['loggedin'] = True
-                session['id'] = username.id
-                session['username'] = username.username
-                app.logger.info("Successfully logged in!")
-                return redirect('/')
-            else:
-                app.logger.info("Wrong password!")
                 return redirect('/login')
         else:
             flash("Incorrect username!")

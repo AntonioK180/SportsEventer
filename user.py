@@ -43,16 +43,6 @@ class User:
         else:
             return User(*row)
 
-    @staticmethod
-    def get_user_by_email(email):
-        query = 'SELECT * FROM Users WHERE email = %s'
-        value = (email,)
-        cursor.execute(query, value)
-        row = cursor.fetchone()
-        if row is None or row is False:
-            return
-        else:
-            return User(*row)
 
     @staticmethod
     def hash_password(pwd):

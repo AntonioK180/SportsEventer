@@ -17,11 +17,14 @@ cur.execute("SHOW TABLES")
 
 events_check = 0
 users_check = 0
+users_events_check = 0
 for x in cur:
     if x[0] == "Events":
         events_check = 1
     if x[0] == "Users":
         users_check = 1
+    if x[0] == "UsersEvents":
+        users_events_check = 1
     print(x[0])
 
 if events_check:
@@ -47,5 +50,16 @@ else:
          user_id          INT PRIMARY KEY NOT NULL auto_increment,
          email            VARCHAR(60) NOT NULL,
          username         VARCHAR(40) NOT NULL,
-         pwd              VARCHAR(300) NOT NULL
+         pwd              VARCHAR(300) NOT NULL);
+       ''')
+
+if users_events_check:
+    print("UsersEvents table exists.")
+else:
+    cur.execute('''CREATE TABLE UsersEvents(
+        id          INT PRIMARY KEY NOT NULL auto_increment,
+        event_id    INT NOT NULL,
+        FOREIGN KEY(event_id) REFERENCES Events(event_id),
+        user_id     INT NOT NULL,
+        FOREIGN KEY(user_id) REFERENCES Users(user_id));
        ''')

@@ -104,49 +104,6 @@ def newEvent():
         return redirect('/')
 
 
-@app.route('/events/<int:event_id>')
-def openEvent(event_id):
-    event = Event.find(event_id)
-
-    return render_template('event.html', event=event), 200
-
-
-@app.route('/events/<int:event_id>/edit', methods=['GET', 'POST'])
-def editEvent_old(event_id):
-    event = Event.find(event_id)
-    if event.created_by == session['username']:
-        if request.method == 'GET':
-
-            return render_template('editEvent.html', event=event)
-        elif request.method == 'POST':
-            event.people_participating = request.form['people_participating']
-            event.people_needed = request.form['people_needed']
-            event.date = request.form['date']
-            event.time = request.form['time']
-            event.location = request.form['location']
-            event.price = request.form['price']
-            event.description = request.form['description']
-            event.save()
-
-            return redirect(url_for('openEvent', event_id=event.event_id))
-
-    else:
-        flash("You can't edit other's events!")
-        app.logger.warning('Someone tried editing an event.')
-        return redirect(url_for('openEvent', event_id=event.event_id))
-
-
-@app.route('/events/<int:event_id>/delete', methods=['POST'])
-def deleteEvent(event_id):
-    event = Event.find(event_id)
-    if event.created_by == session['username']:
-        event.delete()
-    else:
-        flash("You can't delete others' events!");
-        return redirect(url_for('openEvent', event_id = event.event_id))
-    return redirect('/')
-
-
 @app.route('/rest/events', methods=['GET'])
 @cross_origin()
 def REST_GetEvents():
@@ -199,7 +156,6 @@ def REST_JoinEvent():
         response = app.response_class(status = 200)
 
         return response
-
 
 
 @app.route('/myProfile/editEvent', methods=['GET', 'POST'])

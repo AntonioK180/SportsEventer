@@ -133,7 +133,7 @@ def editEvent_old(event_id):
     else:
         flash("You can't edit other's events!")
         app.logger.warning('Someone tried editing an event.')
-        return redirect(url_for('openEvent', event_id = event.event_id))
+        return redirect(url_for('openEvent', event_id=event.event_id))
 
 
 @app.route('/events/<int:event_id>/delete', methods=['POST'])
@@ -148,6 +148,7 @@ def deleteEvent(event_id):
 
 
 @app.route('/rest/events', methods=['GET'])
+@cross_origin()
 def REST_GetEvents():
     if 'user_id' in request.args:
         user = User.get_user_by_id(request.args['user_id'])
@@ -188,6 +189,17 @@ def REST_EditEvent():
         elif request.method == 'POST':
             data = request.get_json(force=True)
             print(data)
+
+
+@app.route('/rest/events/join', methods=['GET', 'POST'])
+def REST_JoinEvent():
+    if 'event_id' in request.args:
+        event = Event.find(request.args['event_id'])
+        event.addUserToEvent(session['id'])
+        response = app.response_class(status = 200)
+
+        return response
+
 
 
 @app.route('/myProfile/editEvent', methods=['GET', 'POST'])

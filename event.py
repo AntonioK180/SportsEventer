@@ -18,6 +18,13 @@ class Event():
         self.price = price
         self.description = description
 
+
+    def addUserToEvent(user_id):
+        query = "INSERT INTO UsersEvents(event_id, user_id) VALUES(%s, %s)"
+        values = (self.event_id, user_id)
+        cur.execute(query, value)
+        mydb.commit()
+
     @staticmethod
     def all():
         cur.execute("SELECT * FROM Events")

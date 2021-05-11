@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Edit your event</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script type="text/javascript">
+          var getUrlParameter = function getUrlParameter(sParam) {
+              var sPageURL = window.location.search.substring(1),
+                  sURLVariables = sPageURL.split('&'),
+                  sParameterName,
+                  i;
+
+              for (i = 0; i < sURLVariables.length; i++) {
+                  sParameterName = sURLVariables[i].split('=');
+
+                  if (sParameterName[0] === sParam) {
+                      return typeof sParameterName[1] === undefined ? true : decodeURIComponent(sParameterName[1]);
+                  }
+              }
+              return false;
+          };
+
+          let data;
+          var event_id = getUrlParameter('event_id');
+
+          function getCurrentEvent(){
+            let deferred = $.Deferred();
+            $.ajax({
+              url: "http://localhost:5000/rest/events/edit?event_id=" + event_id,
+              dataType: "json",
+              type: "GET",
+              success: function(result){
+                data = result;
+                deferred.resolve();
+              }
+            });
+            return deferred.promise();
+          };
+
+          function postCurrentEvent(eventInfo){
+            let deferred = $.Deferred();
+            $.ajax({
+              url: "http://localhost:5000/rest/events/edit?event_id=" + event_id,
+              dataType: "json",
+              type: "POST",
+              data: {'data': eventInfo},
+              success: function(){
+                console.log("Updated successfully");
+                deferred.resolve();
+              }
+            });
+            return deferred.promise();
+          }
+
+          function postForm(){
+            $("#formEdit").ajaxForm({
+              url: "http://localhost:5000/rest/events/edit?event_id=" + event_id,
+              type: 'post'
+            });
+          }
+
+          function loadCurrentEvent(currentEvent){
+            $('#people_participating').val(currentEvent.people_participating);
+            $('#people_needed').val(currentEvent.people_needed);
+            $('#date').val(currentEvent.date);
+            $('#time').val(currentEvent.time);
+            $('#location').val(currentEvent.location);
+            $('#price').val(currentEvent.price);
+            $('#description').val(currentEvent.description);
+          };
+
+          $(document).ready(function(){
+            $.when(getCurrentEvent()).done(function(){
+              loadCurrentEvent(data);
+              postForm();
+            });
+          });
+        </script>
+
+    </head>
+    <body>
+      <h1> Sports Eventer </h1>
+      <header>
+          <button type="button" onclick="window.location='/'">Home</button>
+      </header>
+
+      <form id="formEdit" method="post">
+        <label>People participating:</label>  <input type="number" id="people_participating" required><br>
+        <label>People needed:</label>         <input type="number" id="people_needed" required><br>
+        <label>Date:</label>                  <input type="date" id="date"><br>
+        <label>Time:</label>                  <input type="time" id="time"><br>
+        <label>Location:</label>              <input type="text" id="location"><br>
+        <label>Price per person:</label>      <input type="number" id="price"required><br>
+        <label>Short description:</label>     <input type="text" id="description"><br><br>
+        <input id="submit" type="submit" value="Submit">
+      </form>
+
+    </body>
+</html>

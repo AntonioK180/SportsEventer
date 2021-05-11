@@ -1,10 +1,9 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
     <head>
-        <title>Home</title>
-        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='home.css') }}">
+        <title>TEST</title>
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='test.css') }}">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
         <script>
           let data;
 
@@ -63,26 +62,12 @@
             });
           });
         </script>
-
     </head>
     <body>
       <h1> Sports Eventer </h1>
-      <header>
-      {% block content %}
-          {% if loggedin == False %}
-              <a href="/register">Register</a>
-              <a href="/login">Log In</a>
-          {% else %}
-              <a href="/logout">Log out</a>
-              <a href="/myProfile">My Profile</a>
-              <a href="/newEvent">Create an Event</a>
-          {% endif %}
-      {% endblock content %}
-      </header>
 
       <table>
 
       </table>
-
     </body>
 </html>

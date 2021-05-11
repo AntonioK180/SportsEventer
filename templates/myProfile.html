@@ -2,6 +2,86 @@
 <html>
     <head>
         <title>My Profile</title>
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='myProfile.css') }}">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script type="text/javascript">
+
+          var getUrlParameter = function getUrlParameter(sParam) {
+              var sPageURL = window.location.search.substring(1),
+                  sURLVariables = sPageURL.split('&'),
+                  sParameterName,
+                  i;
+
+              for (i = 0; i < sURLVariables.length; i++) {
+                  sParameterName = sURLVariables[i].split('=');
+
+                  if (sParameterName[0] === sParam) {
+                      return typeof sParameterName[1] === undefined ? true : decodeURIComponent(sParameterName[1]);
+                  }
+              }
+              return false;
+          };
+
+
+
+          let data;
+          var user_id = {{user.user_id}}
+
+          function loadMyEvents(myEvents){
+            var tableObject = $('table');
+            $.each(myEvents, function(i, item){
+              var str = '<tr id="'+item.event_id+'">"';
+              var editLink = '<a href="/myProfile/editEvent?event_id='+item.event_id+'">EDIT</a>';
+              var delBtn = '<button id="delBtn_'+item.event_id+'">DELETE</button>';
+              var tr = $(str).append(
+                $('<td class="event_id">').text(item.event_id),
+                $('<td class="created_by">').text(item.created_by + "'s "),
+                $('<td class="sport">').text(item.sport + " event "),
+                $('<td class="people_participating">').text("People participating: " + item.people_participating),
+                $('<td class="people_needed">').text("People needed: " + item.people_needed),
+                $('<td class="date">').text("Date: " + item.date),
+                $('<td class="time">').text("Time: " + item.time),
+                $('<td class="loacation">').text("Location: " + item.location),
+                $('<td class="price">').text("Price: " + item.price),
+                $('<td class="description">').text("Description: " + item.description),
+                $('<td class="EditLink">').append(editLink),
+                $('<td class="DelButton">').append(delBtn)
+              );
+              $("table").append(tr);
+
+              $("#delBtn_"+item.event_id).click(function(){
+                $.ajax({
+                  url: "http://localhost:5000/rest/events/delete?event_id=" + item.event_id,
+                  type: "DELETE",
+                  success: function(){
+                    location.reload();
+                  }
+                });
+              })
+            })
+          }
+
+          function getMyEvents(){
+            let deferred = $.Deferred();
+            $.ajax({
+              url: "http://localhost:5000/rest/events?user_id=" + user_id,
+              dataType: "json",
+              type: "GET",
+              success: function(result){
+                data = result;
+                deferred.resolve();
+              }
+            });
+            return deferred.promise();
+          }
+
+          $(document).ready(function(){
+            $.when(getMyEvents()).done(function(){
+              loadMyEvents(data);
+            });
+          });
+
+        </script>
     </head>
     <body>
       <h1> Sports Eventer </h1>
@@ -10,6 +90,10 @@
         <a href="/myProfile/{{user.user_id}}/edit">Edit Profile</a>
         <h2>Hello, {{user.username}}!</h2>
       </header>
+
+      <table>
+
+      </table>
 
     </body>
 </html>

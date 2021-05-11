@@ -1,4 +1,5 @@
 from db_config import mydb
+from json import JSONEncoder
 
 
 cur = mydb.cursor()
@@ -33,6 +34,16 @@ class Event():
             return
         return Event(*row)
 
+    @staticmethod
+    def findByUsername(created_by):
+        query = "SELECT * FROM Events WHERE created_by = %s"
+        value = (created_by,)
+        cur.execute(query, value)
+        result = cur.fetchall()
+        if result is None:
+            return
+        return [Event(*row) for row in result]
+
     def create(self):
         query = "INSERT INTO Events (sport, created_by, people_participating, people_needed, event_date, event_time, location, price, description) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)"
         value = (self.sport, self.created_by, self.people_participating, self.people_needed,
@@ -52,3 +63,8 @@ class Event():
         value = (self.event_id,)
         cur.execute(query, value)
         mydb.commit()
+
+
+class EventEncoder(JSONEncoder):
+    def default(self, o):
+        return o.__dict__

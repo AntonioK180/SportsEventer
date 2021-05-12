@@ -52,13 +52,6 @@
             return deferred.promise();
           }
 
-          function postForm(){
-            $("#formEdit").ajaxForm({
-              url: "http://localhost:5000/rest/events/edit?event_id=" + event_id,
-              type: 'post'
-            });
-          }
-
           function loadCurrentEvent(currentEvent){
             $('#people_participating').val(currentEvent.people_participating);
             $('#people_needed').val(currentEvent.people_needed);
@@ -72,14 +65,13 @@
           $(document).ready(function(){
             $.when(getCurrentEvent()).done(function(){
               loadCurrentEvent(data);
-              postForm();
             });
           });
         </script>
 
     </head>
     <body>
-      <h1> Sports Eventer </h1>
+      <h1> Sports Eventer for {{currentUser}} </h1>
       <header>
           <button type="button" onclick="window.location='/'">Home</button>
       </header>

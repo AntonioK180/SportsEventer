@@ -159,6 +159,7 @@ def REST_JoinEvent():
     response = app.response_class(status = 200)
     return response
 
+
 @app.route('/rest/users', methods=['GET'])
 @cross_origin()
 def REST_GetUsername():
@@ -183,7 +184,7 @@ def REST_GetUsername():
 @app.route('/myProfile/editEvent', methods=['GET', 'POST'])
 def editEvent():
     if request.method == 'GET':
-        return render_template('testEditEvent.html')
+        return render_template('testEditEvent.html', currentUser=session['username'])
     elif request.method == 'POST':
         return redirect(url_for('home'))
 

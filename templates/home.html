@@ -43,20 +43,23 @@
 
               $("#btn_join_"+item.event_id).click(function(){
                 console.log("Join Button" + item.event_id + " was pressed");
-                $.ajax({
-                  url: "http://localhost:5000/rest/events/join?event_id=" + item.event_id,
-                  dataType: "json",
-                  type: "GET",
-                  success: function(){
-                    alert("KRISKO");
-                  }
-                })
-              })
+                console.log(allEvents[i].people_participating);
 
+                if(allEvents[i].people_participating >= allEvents[i].people_needed){
+                  alert("YOU CANNOT JOIN THIS EVENT, BECAUSE IT IS FULL!");
+                } else {
+                  $.ajax({
+                    url: "http://localhost:5000/rest/events/join?event_id=" + item.event_id + "&user_id=" + {{user_id}},
+                    dataType: "json",
+                    type: "PUT",
+                    async: false
+                  });
+                  location.reload();
+                }
+
+              })
             })
           }
-
-
 
 
           function getData(){

@@ -148,14 +148,15 @@ def REST_EditEvent():
             print(data)
 
 
-@app.route('/rest/events/join', methods=['GET', 'POST'])
+@app.route('/rest/events/join', methods=['GET', 'PUT'])
 def REST_JoinEvent():
     if 'event_id' in request.args:
-        event = Event.find(request.args['event_id'])
-        event.addUserToEvent(session['id'])
-        response = app.response_class(status = 200)
+        if 'user_id' in request.args:
+            event = Event.find(request.args['event_id'])
+            event.addUserToEvent(request.args['user_id'])
 
-        return response
+    response = app.response_class(status = 200)
+    return response
 
 
 @app.route('/myProfile/editEvent', methods=['GET', 'POST'])

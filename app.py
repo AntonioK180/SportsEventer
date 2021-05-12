@@ -21,6 +21,7 @@ def home():
 
 
 @app.route('/register', methods=['GET', 'POST'])
+@cross_origin()
 def register():
     if request.method == 'GET':
         return render_template('register.html')
@@ -157,6 +158,26 @@ def REST_JoinEvent():
 
     response = app.response_class(status = 200)
     return response
+
+@app.route('/rest/users', methods=['GET'])
+@cross_origin()
+def REST_GetUsername():
+    if 'username' in request.args:
+        print('THERE IS A USERNAME')
+        if User.get_user_by_username(request.args['username']) is None:
+            response = app.response_class(
+                response = json.dumps({"nameFree":1}),
+                status = 200,
+                mimetype = 'application/json'
+            )
+            return response
+        else:
+            response = app.response_class(
+                response = json.dumps({"nameFree":0}),
+                status = 200,
+                mimetype = 'application/json'
+            )
+            return response
 
 
 @app.route('/myProfile/editEvent', methods=['GET', 'POST'])

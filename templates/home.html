@@ -45,9 +45,9 @@
                 console.log("Join Button" + item.event_id + " was pressed");
                 console.log(allEvents[i].people_participating);
 
-                /*if(allEvents[i].people_participating >= allEvents[i].people_needed){
+                if(allEvents[i].people_participating >= allEvents[i].people_needed){
                   alert("YOU CANNOT JOIN THIS EVENT, BECAUSE IT IS FULL!");
-                } else {
+                }  else {
                   $.ajax({
                     url: "http://localhost:5000/rest/events/join?event_id=" + item.event_id + "&user_id=" + {{user_id}},
                     dataType: "json",
@@ -55,7 +55,7 @@
                     async: false
                   });
                   location.reload();
-                }*/
+                }
 
               })
             })

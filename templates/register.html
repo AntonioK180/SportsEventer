@@ -5,7 +5,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
     <script type="text/javascript">
-    let data;
+      let data;
 
       function isUsernameRegistered(username){
         let deferred = $.Deferred();
@@ -56,13 +56,14 @@
         });
       });
     </script>
+
   </head>
   <body>
     <h1> Sports Eventer </h1>
-    <form action="/register" method = "post">
-      <label><b>Email</b>   </label><input id="email" name = "email" type="text"/><br>
-      <label><b>Username</b></label><input id="username" name = "username" type="text"/><br>
-      <label><b>Password</b></label><input id="pwd" name = "pwd" type="password"/><br>
+    <form name="registration" action="/register" method = "post">
+      <label><b>Email</b>   </label><input id="email"     name = "email" type="text"/><br>
+      <label><b>Username</b></label><input id="username"  name = "username" type="text"/><br>
+      <label><b>Password</b></label><input id="pwd"       name = "pwd" type="password"/><br>
       </br>
       <input id="sign_button" type="submit" name="sign_button" value="Sign up">
     </form>

@@ -7,6 +7,43 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
         <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='newEvent.css') }}">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+        <script type="text/javascript">
+          $(document).ready(function(){
+            $("#submit_btn").click(function(){
+              $(".error").hide();
+              var hasError = false;
+
+              var selectedDate = new Date($("#date").val());
+              var currentDate = new Date();
+              if(selectedDate < currentDate){
+                $("#date").after('<span class="error">You cannot chose a previous date!</span>');
+                hasError = true;
+              }
+
+              var participatingVal = $("#participating").val();
+              if(participatingVal <= 0){
+                $("#participating").after('<span class="error">The amount of people cannot be negative or 0!</span>');
+                hasError = true;
+              }
+
+              var neededVal = $("#needed").val();
+              if(neededVal <= 0){
+                $("#needed").after('<span class="error">The amount of people cannot be negative or 0!</span>');
+                hasError = true;
+              }
+
+              var priceVal = $("#price").val();
+              if(priceVal < 0){
+                $("#price").after('<span class="error">The price cannot be negative!</span>');
+                hasError = true;
+              }
+
+              if(hasError == true){return false;}
+            });
+          });
+        </script>
     </head>
     <body>
       <nav class="navbar navbar-inverse" style="font-size: 20px;">
@@ -39,28 +76,28 @@
           <div class="group">
           <label>Sport:</label><br>
           <select name="sport">
-            <option value="football">Football</option>
+            <option value="football"  >Football</option>
             <option value="basketball">Basketball</option>
             <option value="volleyball">Volleyball</option>
-            <option value="tennis">Tennis</option>
+            <option value="tennis"    >Tennis</option>
           </select><br>
           </div>
           <div class="group">
             <label>People participating:</label><br>  
-            <input type="number" name="people_participating" class="req" required><br>
+            <input id="participating" type="number" name="people_participating" class="req" required><br>
           </div>
           <div class="group">
             <label>People needed:</label><br>
-            <input type="number" name="people_needed" class="req" required><br>
+            <input id="needed" type="number" name="people_needed" class="req" required><br>
           </div>
           <div class="group">
             <label>Date & Time:</label><br>
-            <input type="date" name="date">
+            <input id="date" type="date" name="date">
             <input type="time" name="time" ><br>
           </div>
           <div class="group">
             <label>Price per person:</label><br>
-            <input type="number" name="price" class="req" required><br>
+            <input id="price" type="number" name="price" class="req" required><br>
           </div>
           <div class="group">
             <label>Location:</label><br>
@@ -70,7 +107,7 @@
             <label>Short description:</label><br>
             <textarea name="description" class="form-control" id="Description" rows="3" maxlength="300"></textarea><br><br>
           </div>
-          <input id=submit_button type="submit" value="Submit">
+          <input id="submit_btn" type="submit" value="Submit">
       </form>
       </div>
     </body>

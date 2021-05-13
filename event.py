@@ -19,17 +19,12 @@ class Event():
         self.description = description
 
 
-    def addUserToEvent(user_id):
-        query = "INSERT INTO UsersEvents(event_id, user_id) VALUES(%s, %s)"
-        values = (self.event_id, user_id)
-        cur.execute(query, value)
-        mydb.commit()
-
     @staticmethod
     def all():
         cur.execute("SELECT * FROM Events")
         result = cur.fetchall()
         return [Event(*row) for row in result]
+
 
     @staticmethod
     def find(event_id):
@@ -41,6 +36,7 @@ class Event():
             return
         return Event(*row)
 
+
     @staticmethod
     def findByUsername(created_by):
         query = "SELECT * FROM Events WHERE created_by = %s"
@@ -51,12 +47,14 @@ class Event():
             return
         return [Event(*row) for row in result]
 
+
     def create(self):
         query = "INSERT INTO Events (sport, created_by, people_participating, people_needed, event_date, event_time, location, price, description) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)"
         value = (self.sport, self.created_by, self.people_participating, self.people_needed,
                  self.date, self.time, self.location, self.price, self.description)
         cur.execute(query, value)
         mydb.commit()
+
 
     def save(self):
         query = "UPDATE Events SET people_participating = %s, people_needed = %s, event_date = %s, event_time = %s, location = %s, price = %s, description = %s WHERE event_id = %s"
@@ -65,11 +63,22 @@ class Event():
         cur.execute(query, value)
         mydb.commit()
 
+
     def delete(self):
         query = "DELETE FROM Events WHERE event_id = %s"
         value = (self.event_id,)
         cur.execute(query, value)
         mydb.commit()
+
+
+    def addUserToEvent(self, user_id):
+        query = "INSERT INTO UsersEvents(event_id, user_id) VALUES(%s, %s)"
+        value = (self.event_id, user_id)
+        cur.execute(query, value)
+        mydb.commit()
+        self.people_participating += 1
+        self.save()
+
 
 
 class EventEncoder(JSONEncoder):

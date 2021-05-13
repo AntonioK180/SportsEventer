@@ -7,6 +7,58 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='register.css') }}">
+    <script type="text/javascript">
+      let data;
+
+      function isUsernameRegistered(username){
+        let deferred = $.Deferred();
+        $.ajax({
+          url: "http://localhost:5000/rest/users?username=" + username,
+          dataType: "json",
+          type: "GET",
+          success: function(result){
+            data = result;
+            deferred.resolve();
+          }
+        });
+        return deferred.promise();
+      }
+
+
+      $(document).ready(function(){
+        $('#sign_button').click(function(){
+          $(".error").hide();
+          var hasError = false;
+
+          var usernameVal = $("#username").val();
+          var usernameFree = true;
+          $.when(isUsernameRegistered(usernameVal)).done(function(){
+            console.log(data["nameFree"]);
+
+            if(data["nameFree"] == 0){
+              $("#username").after('<span class="error">This username is already taken.</span>');
+              console.log("USERNAME IS TAKEN");
+              hasError = true;
+            }
+          });
+
+          var emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
+
+          var emailVal = $("#email").val();
+          if(emailVal == ''){
+            $("#email").after('<span class="error">Please enter your email address.</span>');
+            console.log("EMPTY EMAIL");
+            hasError = true;
+          } else if(!emailReg.test(emailVal)){
+            $("#email").after('<span class="error">Enter a valid email address.</span>');
+            console.log("INVALID EMAIL");
+            hasError = true;
+          }
+
+          if(hasError == true){return false;}
+        });
+      });
+    </script>
   </head>
   <body>
       <nav class="navbar navbar-inverse" style="font-size: 20px;">
@@ -22,21 +74,22 @@
     </nav>
     <div class="content" id=registration>
     <h1><strong>Registration</strong></h1>
-    <form action="/register" method = "post">
+    <form name="registration" action="/register" method = "post">
       <div class="group">
       <label><b>Email</b></label><br>
-      <input id=email_input name = "email" type="text"/><br>
+      <input id="email" name = "email" type="text"/><br>
       </div>
       <div class="group">
       <label><b>Username</b></label><br>
-      <input id=usr_input name = "username" type="text"/><br>
+      <input id="username" name = "username" type="text"/><br>
       </div>
       <div class="group">
       <label><b>Password</b></label><br>
-      <input id=pwd_input name = "pwd" type="password"/><br>
+      <input id="pwd" name = "pwd" type="password"/><br>
       </div>
       </br>
-      <input id=sign_button type="submit" name = "sign_button" value = "Sign up">
+      <input id="sign_button" type="submit" name = "sign_button" value = "Sign up">
+
     </form>
     </div>
   </body>

@@ -47,24 +47,23 @@ This is a visual representation of how the site should look:
 ### Second Milestone:
   1. Advanced searching filters
      - Be able to sort the events by: location, sport, price and others.
-  2. Requesting/Approving a person to an event (In order to join an event, you must request to join and then be accepted by the event's organizer)
-  3.  Events Chat
+  2.  Events Chat
       - Chat with the event's organizer
-      - View all of your chats
-  4. My Profile Page
+  3. My Profile Page
      - Displaying my information and events, that I am related to
-  5. Basic UI
+  4. Basic UI
      - usable buttons and text boxes
      - dropdown menus where needed
   
 ### Third Milestone:
   1. Polishing the UI
   2. Automation Tests
-  3. Email Notifications:
+  3. Requesting/Approving a person to an event (In order to join an event, you must request to join and then be accepted by the event's organizer)
+  4. Email Notifications:
 	 - for profile verification
 	 - for event joining (either you got approved or rejected)
 	 - for messages in the chat
-  4. Calendar
+  
   
 ### Optional:
   1. Admin Role (Controling Events)
@@ -72,4 +71,4 @@ This is a visual representation of how the site should look:
 	 - Marking if someone doesn't show up to an event or is late
   3. Creating Tournament Events
   4. Forgotten Password Option
-  5. Making the Calendar Feature "Interactive"
+  5. Calendar

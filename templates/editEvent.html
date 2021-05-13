@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Edit your Event</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+        <script type="text/javascript">
+          $(document).ready(function(){
+            $("#submit_btn").click(function(){
+              $(".error").hide();
+              var hasError = false;
+
+              var selectedDate = new Date($("#date").val());
+              var currentDate = new Date();
+              if(selectedDate < currentDate){
+                $("#date").after('<span class="error">You cannot chose a previous date!</span>');
+                hasError = true;
+              }
+
+              var participatingVal = $("#participating").val();
+              if(participatingVal <= 0){
+                $("#participating").after('<span class="error">The amount of people cannot be negative or 0!</span>');
+                hasError = true;
+              }
+
+              var neededVal = $("#needed").val();
+              if(neededVal <= 0){
+                $("#needed").after('<span class="error">The amount of people cannot be negative or 0!</span>');
+                hasError = true;
+              }
+
+              var priceVal = $("#price").val();
+              if(priceVal < 0){
+                $("#price").after('<span class="error">The price cannot be negative!</span>');
+                hasError = true;
+              }
+
+              if(hasError == true){return false;}
+            });
+          });
+        </script>
+    </head>
+    <body>
+      <h1> Sports Eventer </h1>
+      <header>
+          <button type="button" onclick="window.location='/'">Home</button>
+      </header>
+
+      {% with messages = get_flashed_messages() %}
+        {% if messages %}
+          <ul class=flashes>
+            {% for message in messages %}
+              <li>{{ message }}</li>
+            {% endfor %}
+          </ul>
+        {% endif %}
+      {% endwith %}
+
+      <form action="/editEvent" method="post">
+          <label>Sport:</label>
+          <select name="sport">
+            <option value="football"  >Football</option>
+            <option value="basketball">Basketball</option>
+            <option value="volleyball">Volleyball</option>
+            <option value="tennis"    >Tennis</option>
+          </select><br>
+          <label>People participating:</label>  <input id="participating" type="number" name="people_participating" class="req" required><br>
+          <label>People needed:</label>         <input id="needed" type="number"        name="people_needed" class="req" required><br>
+          <label>Date:</label>                  <input id="date" type="date"            name="date"><br>
+          <label>Time:</label>                  <input type="time"                      name="time" ><br>
+          <label>Location:</label>              <input type="text"                      name="location" class="req" required><br>
+          <label>Price per person:</label>      <input id="price" type="number"         name="price" class="req" required><br>
+          <label>Short description:</label>     <input type="text"                      name="description"><br><br>
+          <input id="submit_btn" type="submit" value="Submit">
+      </form>
+    </body>
+</html>

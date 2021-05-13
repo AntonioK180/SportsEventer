@@ -21,6 +21,7 @@ def home():
 
 
 @app.route('/register', methods=['GET', 'POST'])
+@cross_origin()
 def register():
     if request.method == 'GET':
         return render_template('register.html')
@@ -104,6 +105,27 @@ def newEvent():
         return redirect('/')
 
 
+@app.route('/myProfile/editEvent', methods=['GET', 'POST'])
+def editEvent():
+    if request.method == 'GET':
+        return render_template('testEditEvent.html', currentUser=session['username'])
+    elif request.method == 'POST':
+        if 'event_id' in request.args:
+            event = Event.find(request.args['event_id'])
+            if event.created_by != session['username']:
+                print("YOU CANNOT EDIT OTHER EVENTS!")
+            else:
+                event.people_participating = request.form['participating']
+                event.people_needed = request.form['needed']
+                event.date = request.form['date']
+                event.time = request.form['time']
+                event.location = request.form['location']
+                event.price = request.form['price']
+                event.description = request.form['description']
+                event.save()
+        return redirect(url_for('home'))
+
+
 @app.route('/rest/events', methods=['GET'])
 @cross_origin()
 def REST_GetEvents():
@@ -148,23 +170,38 @@ def REST_EditEvent():
             print(data)
 
 
-@app.route('/rest/events/join', methods=['GET', 'POST'])
+@app.route('/rest/events/join', methods=['GET', 'PUT'])
 def REST_JoinEvent():
     if 'event_id' in request.args:
-        if 'loggedin' in session:
+        if 'user_id' in request.args:
             event = Event.find(request.args['event_id'])
-            event.addUserToEvent(session['id'])
-        response = app.response_class(status = 200)
+            event.addUserToEvent(request.args['user_id'])
 
-        return response
+    response = app.response_class(status = 200)
+    return response
 
 
-@app.route('/myProfile/editEvent', methods=['GET', 'POST'])
-def editEvent():
-    if request.method == 'GET':
-        return render_template('testEditEvent.html')
-    elif request.method == 'POST':
-        return redirect(url_for('home'))
+@app.route('/rest/users', methods=['GET'])
+@cross_origin()
+def REST_GetUsername():
+    if 'username' in request.args:
+        print('THERE IS A USERNAME')
+        if User.get_user_by_username(request.args['username']) is None:
+            response = app.response_class(
+                response = json.dumps({"nameFree":1}),
+                status = 200,
+                mimetype = 'application/json'
+            )
+            return response
+        else:
+            response = app.response_class(
+                response = json.dumps({"nameFree":0}),
+                status = 200,
+                mimetype = 'application/json'
+            )
+            return response
+
+
 
 if __name__ == '__main__':
     app.run(debug=True)

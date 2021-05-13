@@ -52,16 +52,9 @@
             return deferred.promise();
           }
 
-          function postForm(){
-            $("#formEdit").ajaxForm({
-              url: "http://localhost:5000/rest/events/edit?event_id=" + event_id,
-              type: 'post'
-            });
-          }
-
           function loadCurrentEvent(currentEvent){
-            $('#people_participating').val(currentEvent.people_participating);
-            $('#people_needed').val(currentEvent.people_needed);
+            $('#participating').val(currentEvent.people_participating);
+            $('#needed').val(currentEvent.people_needed);
             $('#date').val(currentEvent.date);
             $('#time').val(currentEvent.time);
             $('#location').val(currentEvent.location);
@@ -72,27 +65,61 @@
           $(document).ready(function(){
             $.when(getCurrentEvent()).done(function(){
               loadCurrentEvent(data);
-              postForm();
+              console.log(data);
+              $("#formEdit").attr('action', '/myProfile/editEvent?event_id='+data['event_id']);
+
+              $("#submit_btn").click(function(){
+                $(".error").hide();
+                var hasError = false;
+
+                var selectedDate = new Date($("#date").val());
+                var currentDate = new Date();
+                if(selectedDate < currentDate){
+                  $("#date").after('<span class="error">You cannot chose a previous date!</span>');
+                  hasError = true;
+                }
+
+                var participatingVal = $("#participating").val();
+                if(participatingVal <= 0){
+                  $("#participating").after('<span class="error">The amount of people cannot be negative or 0!</span>');
+                  hasError = true;
+                }
+
+                var neededVal = $("#needed").val();
+                if(neededVal <= 0){
+                  $("#needed").after('<span class="error">The amount of people cannot be negative or 0!</span>');
+                  hasError = true;
+                }
+
+                var priceVal = $("#price").val();
+                if(priceVal < 0){
+                  $("#price").after('<span class="error">The price cannot be negative!</span>');
+                  hasError = true;
+                }
+
+
+                if(hasError == true){return false;}
+              });
             });
           });
         </script>
 
     </head>
     <body>
-      <h1> Sports Eventer </h1>
+      <h1> Sports Eventer for {{currentUser}} </h1>
       <header>
           <button type="button" onclick="window.location='/'">Home</button>
       </header>
 
       <form id="formEdit" method="post">
-        <label>People participating:</label>  <input type="number" id="people_participating" required><br>
-        <label>People needed:</label>         <input type="number" id="people_needed" required><br>
-        <label>Date:</label>                  <input type="date" id="date"><br>
-        <label>Time:</label>                  <input type="time" id="time"><br>
-        <label>Location:</label>              <input type="text" id="location"><br>
-        <label>Price per person:</label>      <input type="number" id="price"required><br>
-        <label>Short description:</label>     <input type="text" id="description"><br><br>
-        <input id="submit" type="submit" value="Submit">
+        <label>People participating:</label>  <input type="number" id="participating" name="participating" required><br>
+        <label>People needed:</label>         <input type="number" id="needed"        name="needed" required><br>
+        <label>Date:</label>                  <input type="date"   id="date"          name="date"><br>
+        <label>Time:</label>                  <input type="time"   id="time"          name="time"><br>
+        <label>Location:</label>              <input type="text"   id="location"      name="location"><br>
+        <label>Price per person:</label>      <input type="number" id="price"         name="price" required><br>
+        <label>Short description:</label>     <input type="text"   id="description"   name="description"><br><br>
+        <input id="submit_btn" type="submit" value="Submit">
       </form>
 
     </body>

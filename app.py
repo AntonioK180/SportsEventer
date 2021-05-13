@@ -111,16 +111,18 @@ def editEvent():
         return render_template('testEditEvent.html', currentUser=session['username'])
     elif request.method == 'POST':
         if 'event_id' in request.args:
-            print("Ima post yo mama")
             event = Event.find(request.args['event_id'])
-            event.people_participating = request.form['participating']
-            event.people_needed = request.form['needed']
-            event.date = request.form['date']
-            event.time = request.form['time']
-            event.location = request.form['location']
-            event.price = request.form['price']
-            event.description = request.form['description']
-            event.save()
+            if event.created_by != session['username']:
+                print("YOU CANNOT EDIT OTHER EVENTS!")
+            else:
+                event.people_participating = request.form['participating']
+                event.people_needed = request.form['needed']
+                event.date = request.form['date']
+                event.time = request.form['time']
+                event.location = request.form['location']
+                event.price = request.form['price']
+                event.description = request.form['description']
+                event.save()
         return redirect(url_for('home'))
 
 

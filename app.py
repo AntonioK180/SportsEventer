@@ -105,6 +105,25 @@ def newEvent():
         return redirect('/')
 
 
+@app.route('/myProfile/editEvent', methods=['GET', 'POST'])
+def editEvent():
+    if request.method == 'GET':
+        return render_template('testEditEvent.html', currentUser=session['username'])
+    elif request.method == 'POST':
+        if 'event_id' in request.args:
+            print("Ima post yo mama")
+            event = Event.find(request.args['event_id'])
+            event.people_participating = request.form['participating']
+            event.people_needed = request.form['needed']
+            event.date = request.form['date']
+            event.time = request.form['time']
+            event.location = request.form['location']
+            event.price = request.form['price']
+            event.description = request.form['description']
+            event.save()
+        return redirect(url_for('home'))
+
+
 @app.route('/rest/events', methods=['GET'])
 @cross_origin()
 def REST_GetEvents():
@@ -181,12 +200,6 @@ def REST_GetUsername():
             return response
 
 
-@app.route('/myProfile/editEvent', methods=['GET', 'POST'])
-def editEvent():
-    if request.method == 'GET':
-        return render_template('testEditEvent.html', currentUser=session['username'])
-    elif request.method == 'POST':
-        return redirect(url_for('home'))
 
 if __name__ == '__main__':
     app.run(debug=True)

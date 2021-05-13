@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Create an Event</title>
-        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='newEvent.css') }}">
+        <title>Edit your Event</title>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
         <script type="text/javascript">
@@ -57,7 +56,7 @@
         {% endif %}
       {% endwith %}
 
-      <form action="/newEvent" method="post">
+      <form action="/editEvent" method="post">
           <label>Sport:</label>
           <select name="sport">
             <option value="football"  >Football</option>

@@ -2,15 +2,70 @@
 <html lang=eng>
   <head>
     <title>Register</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <script type="text/javascript">
+      let data;
+
+      function isUsernameRegistered(username){
+        let deferred = $.Deferred();
+        $.ajax({
+          url: "http://localhost:5000/rest/users?username=" + username,
+          dataType: "json",
+          type: "GET",
+          success: function(result){
+            data = result;
+            deferred.resolve();
+          }
+        });
+        return deferred.promise();
+      }
+
+
+      $(document).ready(function(){
+        $('#sign_button').click(function(){
+          $(".error").hide();
+          var hasError = false;
+
+          var usernameVal = $("#username").val();
+          var usernameFree = true;
+          $.when(isUsernameRegistered(usernameVal)).done(function(){
+            console.log(data["nameFree"]);
+
+            if(data["nameFree"] == 0){
+              $("#username").after('<span class="error">This username is already taken.</span>');
+              console.log("USERNAME IS TAKEN");
+              hasError = true;
+            }
+          });
+
+          var emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
+
+          var emailVal = $("#email").val();
+          if(emailVal == ''){
+            $("#email").after('<span class="error">Please enter your email address.</span>');
+            console.log("EMPTY EMAIL");
+            hasError = true;
+          } else if(!emailReg.test(emailVal)){
+            $("#email").after('<span class="error">Enter a valid email address.</span>');
+            console.log("INVALID EMAIL");
+            hasError = true;
+          }
+
+          if(hasError == true){return false;}
+        });
+      });
+    </script>
+
   </head>
   <body>
     <h1> Sports Eventer </h1>
-    <form action="/register" method = "post">
-      <label><b>Email</b></label><input name = "email" type="text"/><br>
-      <label><b>Username</b></label><input name = "username" type="text"/><br>
-      <label><b>Password</b></label><input name = "pwd" type="password"/><br>
+    <form name="registration" action="/register" method = "post">
+      <label><b>Email</b>   </label><input id="email"     name = "email" type="text"/><br>
+      <label><b>Username</b></label><input id="username"  name = "username" type="text"/><br>
+      <label><b>Password</b></label><input id="pwd"       name = "pwd" type="password"/><br>
       </br>
-      <input type="submit" name = "sign_button" value = "Sign up">
+      <input id="sign_button" type="submit" name="sign_button" value="Sign up">
     </form>
   </body>
 </html>

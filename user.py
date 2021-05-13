@@ -28,7 +28,7 @@ class User:
         cursor.execute(query, value)
         row = cursor.fetchone()
         if row is None:
-            return
+            return None
         else:
             return User(*row)
 

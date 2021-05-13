@@ -2,9 +2,26 @@
 <html>
 	<head>
 		<title>Login</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='login.css') }}">
 	</head>
 	<body>
-		<h1> Sports Eventer </h1>
+		<nav class="navbar navbar-inverse" style="font-size: 20px;">
+			<div class="container-fluid">
+				<div class="navbar-header">
+					<a class="navbar-brand" href="/" style="font-size: 25px;">SportsEventer</a>
+				</div>
+				<ul class="nav navbar-nav navbar-right">
+					<li><a href="/login"><span class="glyphicon glyphicon-log-in"></span> Log in</a></li>
+					<li><a href="/register"><span class="glyphicon glyphicon-pencil"></span> Register</a></li>
+				</ul>
+			</div>
+		</nav>
+		<div class="content" id=login>
+		<h1><strong> Log in </strong></h1>
 
 		{% with messages = get_flashed_messages() %}
 			{% if messages %}
@@ -16,13 +33,18 @@
 
 
 		<form action="/login" method="post">
-			<label>Email or username</label>
+			<div class="group">
+			<label>Username</label>
 			</br>
 			<input name = "user" type = "text"/><br>
+			</div>
+			<div class="group">
 			<label>Password</label>
 			</br>
 			<input name = "pwd" type = "password"/><br>
-			<input type = "submit" name = "login_button" value = "Log in">
+			</div>
+			<input type = "submit" id = login_button name = "login_button" value = "Log in">
 		</form>
+		</div>
 	</body>
 </html>

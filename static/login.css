@@ -11,14 +11,13 @@ body{
   background-size: cover;
 }
 
-
 h1 {color: #222; margin-top: -20px; margin-bottom: 20px;}
+
 label {
   color: #222;
   font-weight: 700;
-  font-size: 13px;
+  font-size: 15px;
 }
-
 .content{
   background-color:rgba(255,255,255,.8);
   border-radius:.25em;
@@ -30,46 +29,32 @@ label {
   text-align: center;
   top:50%;
   transform:translate(-50%, -50%);
-  height: 80%;
-  width: 50%;
-  overflow: auto;
+  height: 38%;
+  width: 32%;
 }
 
-#submit_button{
-    background-color: #222;
-    border: 1px solid #222;
-    color: #9d9d9d;
-    border-radius: 5px;
-    width: 40%;
-    height: 15%;
-    font-size: 30px;
-}
 
-#submit_button:hover{
-    background-color: #222;
-    color: white;
+input {
+  font-size: 18px;
+  width: 90%
 }
 
 .group{
     margin-bottom: 15px;
 }
 
-input{
-    font-size: 15px;
+#login_button{
+	background-color: #222;
+	border: 1px solid #222;
+	color: #9d9d9d;
+	border-radius: 5px;
+	width: 40%;
+	height: 15%;
+	font-size: 30px;
+	margin-top:5%;
 }
 
-textarea {
-  width: 100%;
-  height: 150px;
-  padding: 12px 20px;
-  box-sizing: border-box;
-  border: 2px solid #ccc;
-  border-radius: 4px;
-  background-color: #f8f8f8;
-  font-size: 15px;
-  resize: none;
-}
-
-#location {
-  width: 100%;
+#login_button:hover {
+	background-color: #222;
+	color: white;
 }

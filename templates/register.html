@@ -2,15 +2,42 @@
 <html lang=eng>
   <head>
     <title>Register</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='register.css') }}">
   </head>
   <body>
-    <h1> Sports Eventer </h1>
+      <nav class="navbar navbar-inverse" style="font-size: 20px;">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="/" style="font-size: 25px;">SportsEventer</a>
+        </div>
+        <ul class="nav navbar-nav navbar-right">
+            <li><a href="/login"><span class="glyphicon glyphicon-log-in"></span> Log in</a></li>
+            <li><a href="/register"><span class="glyphicon glyphicon-pencil"></span> Register</a></li>
+        </ul>
+      </div>
+    </nav>
+    <div class="content" id=registration>
+    <h1><strong>Registration</strong></h1>
     <form action="/register" method = "post">
-      <label><b>Email</b></label><input name = "email" type="text"/><br>
-      <label><b>Username</b></label><input name = "username" type="text"/><br>
-      <label><b>Password</b></label><input name = "pwd" type="password"/><br>
+      <div class="group">
+      <label><b>Email</b></label><br>
+      <input id=email_input name = "email" type="text"/><br>
+      </div>
+      <div class="group">
+      <label><b>Username</b></label><br>
+      <input id=usr_input name = "username" type="text"/><br>
+      </div>
+      <div class="group">
+      <label><b>Password</b></label><br>
+      <input id=pwd_input name = "pwd" type="password"/><br>
+      </div>
       </br>
-      <input type="submit" name = "sign_button" value = "Sign up">
+      <input id=sign_button type="submit" name = "sign_button" value = "Sign up">
     </form>
+    </div>
   </body>
 </html>

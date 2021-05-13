@@ -151,8 +151,9 @@ def REST_EditEvent():
 @app.route('/rest/events/join', methods=['GET', 'POST'])
 def REST_JoinEvent():
     if 'event_id' in request.args:
-        event = Event.find(request.args['event_id'])
-        event.addUserToEvent(session['id'])
+        if 'loggedin' in session:
+            event = Event.find(request.args['event_id'])
+            event.addUserToEvent(session['id'])
         response = app.response_class(status = 200)
 
         return response

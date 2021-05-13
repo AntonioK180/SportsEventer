@@ -2,6 +2,10 @@
 <html>
     <head>
         <title>Home</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
         <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='home.css') }}">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
@@ -11,9 +15,9 @@
           function loadAllEvents(allEvents){
             var tableObject = $('table');
             $.each(allEvents, function(i, item){
-              var str = '<tr id="'+item.event_id+'">"';
-              var btn = '<button id="btn_'+item.event_id+'">Details</button>';
-              var btn_join = '<button id="btn_join_'+item.event_id+'">Join Event</button>';
+              var str = '<tr class = "item" id="'+item.event_id+'">"';
+              var btn = '<button class = "details" id="btn_'+item.event_id+'">Details</button>';
+              var btn_join = '<button class = "join" id="btn_join_'+item.event_id+'">Join Event</button>';
               var tr = $(str).append(
                 $('<td class="event_id">').text(item.event_id),
                 $('<td class="created_by">').text(item.created_by + "'s "),
@@ -83,27 +87,45 @@
               loadAllEvents(data);
             });
           });
+
         </script>
+
 
     </head>
     <body>
-      <h1> Sports Eventer </h1>
-      <header>
-      {% block content %}
+    <nav class="navbar navbar-inverse" style="font-size: 20px;">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="/" style="font-size: 25px;">SportsEventer</a>
+        </div>
+        <ul class="nav navbar-nav navbar-right">
+        {% block content %}
           {% if loggedin == False %}
-              <a href="/register">Register</a>
-              <a href="/login">Log In</a>
+            <li><a href="/login"><span class="glyphicon glyphicon-log-in"></span> Log in</a></li>
+            <li><a href="/register"><span class="glyphicon glyphicon-pencil"></span> Register</a></li>
           {% else %}
-              <a href="/logout">Log out</a>
-              <a href="/myProfile">My Profile</a>
-              <a href="/newEvent">Create an Event</a>
+            <li><a href="/newEvent"><span class="glyphicon glyphicon-plus"></span> Create an Event</a></li>
+            <li><a href="/myProfile"><span class="glyphicon glyphicon-user"></span> My Profile</a></li>
+            <li><a href="/logout"><span class="glyphicon glyphicon-log-out"></span> Log out</a></li>
           {% endif %}
-      {% endblock content %}
-      </header>
-
-      <table>
-
-      </table>
+        {% endblock content %}
+        </ul>
+      </div>
+    </nav>
+    <div class="container">
+      <div class="content">
+        <h1>Events</h1>
+        <table id="events">
+            <tr>
+              <th>Number</th>
+              <th>Organizator</th>
+              <th>Type</th>
+              <th colspan="2">Actions</th>
+            </tr>
+        </table>
+      </div>
+    </div>
 
     </body>
 </html>
+

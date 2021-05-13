@@ -2,6 +2,10 @@
 <html>
     <head>
         <title>Create an Event</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
         <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='newEvent.css') }}">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
@@ -42,10 +46,21 @@
         </script>
     </head>
     <body>
-      <h1> Sports Eventer </h1>
-      <header>
-          <button type="button" onclick="window.location='/'">Home</button>
-      </header>
+      <nav class="navbar navbar-inverse" style="font-size: 20px;">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="/" style="font-size: 25px;">SportsEventer</a>
+        </div>
+        <ul class="nav navbar-nav navbar-right">
+            <li><a href="/newEvent"><span class="glyphicon glyphicon-plus"></span> Create an Event</a></li>
+            <li><a href="/myProfile"><span class="glyphicon glyphicon-user"></span> My Profile</a></li>
+            <li><a href="/logout"><span class="glyphicon glyphicon-log-out"></span> Log out</a></li>
+        </ul>
+      </div>
+    </nav>
+      <div class="content">
+      <h1> Create an Event </h1>
+      <div id=create_event>
 
       {% with messages = get_flashed_messages() %}
         {% if messages %}
@@ -58,21 +73,42 @@
       {% endwith %}
 
       <form action="/newEvent" method="post">
-          <label>Sport:</label>
+          <div class="group">
+          <label>Sport:</label><br>
           <select name="sport">
             <option value="football"  >Football</option>
             <option value="basketball">Basketball</option>
             <option value="volleyball">Volleyball</option>
             <option value="tennis"    >Tennis</option>
           </select><br>
-          <label>People participating:</label>  <input id="participating" type="number" name="people_participating" class="req" required><br>
-          <label>People needed:</label>         <input id="needed" type="number"        name="people_needed" class="req" required><br>
-          <label>Date:</label>                  <input id="date" type="date"            name="date"><br>
-          <label>Time:</label>                  <input type="time"                      name="time" ><br>
-          <label>Location:</label>              <input type="text"                      name="location" class="req" required><br>
-          <label>Price per person:</label>      <input id="price" type="number"         name="price" class="req" required><br>
-          <label>Short description:</label>     <input type="text"                      name="description"><br><br>
+          </div>
+          <div class="group">
+            <label>People participating:</label><br>  
+            <input id="participating" type="number" name="people_participating" class="req" required><br>
+          </div>
+          <div class="group">
+            <label>People needed:</label><br>
+            <input id="needed" type="number" name="people_needed" class="req" required><br>
+          </div>
+          <div class="group">
+            <label>Date & Time:</label><br>
+            <input id="date" type="date" name="date">
+            <input type="time" name="time" ><br>
+          </div>
+          <div class="group">
+            <label>Price per person:</label><br>
+            <input id="price" type="number" name="price" class="req" required><br>
+          </div>
+          <div class="group">
+            <label>Location:</label><br>
+            <input type="text" id="location" name="location" class="req" required><br>
+          </div>
+          <div class="group">
+            <label>Short description:</label><br>
+            <textarea name="description" class="form-control" id="Description" rows="3" maxlength="300"></textarea><br><br>
+          </div>
           <input id="submit_btn" type="submit" value="Submit">
       </form>
+      </div>
     </body>
 </html>

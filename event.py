@@ -2,7 +2,7 @@ from db_config import mydb
 from json import JSONEncoder
 
 
-cur = mydb.cursor()
+cur = mydb.cursor(buffered=True)
 
 
 class Event():

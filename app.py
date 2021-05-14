@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for, session, flash
 import logging
-from event import Event, EventEncoder
+from event import EventEncoder, Event
 from user import User
 import json
 from flask_cors import CORS, cross_origin
@@ -14,6 +14,7 @@ app.config['SECRET_KEY'] = 'bigsecreet'
 @app.route('/')
 def home():
     app.logger.info("Running...")
+    print(User.get_joined_events(15))
     if 'loggedin' in session:
         return render_template('home.html', loggedin=True, user_id=session['id'])
     else:

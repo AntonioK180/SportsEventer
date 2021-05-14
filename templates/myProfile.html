@@ -29,6 +29,7 @@
 
 
           let data;
+          let joinData;
           var user_id = {{user.user_id}}
 
           function loadMyEvents(myEvents){
@@ -106,7 +107,7 @@
               dataType: "json",
               type: "GET",
               success: function(result){
-                data = result;
+                joinData = result;
                 deferred.resolve();
               }
             });
@@ -119,7 +120,7 @@
               loadMyEvents(data);
             });
             $.when(getJoinedEvents()).done(function(){
-              loadJoinedEvents(data);
+              loadJoinedEvents(joinData);
             })
           });
 

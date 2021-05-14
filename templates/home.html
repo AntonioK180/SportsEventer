@@ -11,6 +11,7 @@
 
         <script>
           let data;
+          var user_id = {{user_id}}
 
           function loadAllEvents(allEvents){
             var tableObject = $('table');
@@ -53,7 +54,7 @@
                   alert("YOU CANNOT JOIN THIS EVENT, BECAUSE IT IS FULL!");
                 }  else {
                   $.ajax({
-                    url: "http://localhost:5000/rest/events/join?event_id=" + item.event_id + "&user_id=" + {{user_id}},
+                    url: "http://localhost:5000/rest/events/join?event_id=" + item.event_id + "&user_id=" + user_id,
                     dataType: "json",
                     type: "PUT",
                     async: false

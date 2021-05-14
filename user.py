@@ -1,6 +1,7 @@
 from flask import Flask
 from werkzeug.security import generate_password_hash, check_password_hash
 from db_config import mydb
+from event import Event
 
 
 cursor = mydb.cursor(buffered=True)
@@ -48,9 +49,9 @@ class User:
         query = 'SELECT event_id FROM UsersEvents WHERE user_id=%s'
         value = (user_id,)
         cursor.execute(query, value)
-        result = cursor.fetchall()
+        results = cursor.fetchall()
         events = []
-        if result is None:
+        if results is None:
             return;
         else:
             for row in results:

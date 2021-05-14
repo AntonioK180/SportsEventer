@@ -47,6 +47,24 @@ class Event():
             return
         return [Event(*row) for row in result]
 
+    @staticmethod
+    def get_joined_events(user_id):
+        query = 'SELECT event_id FROM UsersEvents WHERE user_id=%s'
+        value = (user_id,)
+        print(user_id)
+        cur.execute(query, value)
+        results = cur.fetchall()
+        events = []
+        if results is None:
+            return;
+        else:
+            for row in results:
+                events.append(Event.find(*row))
+            if len(events) == 0:
+                return;
+            else:
+                return events
+
 
     def create(self):
         query = "INSERT INTO Events (sport, created_by, people_participating, people_needed, event_date, event_time, location, price, description) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)"
@@ -78,6 +96,7 @@ class Event():
         mydb.commit()
         self.people_participating += 1
         self.save()
+
 
 
 

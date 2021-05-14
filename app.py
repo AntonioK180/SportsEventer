@@ -14,7 +14,6 @@ app.config['SECRET_KEY'] = 'bigsecreet'
 @app.route('/')
 def home():
     app.logger.info("Running...")
-    print(User.get_joined_events(15))
     if 'loggedin' in session:
         return render_template('home.html', loggedin=True, user_id=session['id'])
     else:
@@ -150,7 +149,7 @@ def REST_GetEvents():
 def REST_GetJoinedEvents():
     if 'user_id' in request.args:
         response = app.response_class(
-            response = json.dumps(User.get_joined_events(request.args['user_id']), indent=4, cls=EventEncoder),
+            response = json.dumps(Event.get_joined_events(request.args['user_id']), indent=4, cls=EventEncoder),
             status = 200,
             mimetype = 'application/json'
         )

@@ -81,3 +81,31 @@ label {
 #edit_profile:hover {
   color: white;
 }
+
+#joined_events {
+  font-family: Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+#joined_events td, #events th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+
+#joined_events tr:hover {background-color: #ddd;}
+
+#joined_events tr{
+  background-color: #f2f2f2;
+  font-size: 18px;
+}
+
+#joined_events th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: center;
+  background-color: #222;
+  color: #9d9d9d;
+  font-size: 20px;
+}

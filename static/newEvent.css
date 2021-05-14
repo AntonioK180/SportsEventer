@@ -35,7 +35,7 @@ label {
   overflow: auto;
 }
 
-#submit_button{
+#submit_btn{
     background-color: #222;
     border: 1px solid #222;
     color: #9d9d9d;
@@ -45,7 +45,7 @@ label {
     font-size: 30px;
 }
 
-#submit_button:hover{
+#submit_btn:hover{
     background-color: #222;
     color: white;
 }

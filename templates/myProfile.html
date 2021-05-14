@@ -2,6 +2,10 @@
 <html>
     <head>
         <title>My Profile</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
         <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='myProfile.css') }}">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script type="text/javascript">
@@ -37,13 +41,13 @@
                 $('<td class="event_id">').text(item.event_id),
                 $('<td class="created_by">').text(item.created_by + "'s "),
                 $('<td class="sport">').text(item.sport + " event "),
-                $('<td class="people_participating">').text("People participating: " + item.people_participating),
-                $('<td class="people_needed">').text("People needed: " + item.people_needed),
-                $('<td class="date">').text("Date: " + item.date),
-                $('<td class="time">').text("Time: " + item.time),
-                $('<td class="loacation">').text("Location: " + item.location),
-                $('<td class="price">').text("Price: " + item.price),
-                $('<td class="description">').text("Description: " + item.description),
+                $('<td class="people_participating">').text(item.people_participating),
+                $('<td class="people_needed">').text(item.people_needed),
+                $('<td class="date">').text(item.date),
+                $('<td class="time">').text(item.time),
+                $('<td class="loacation">').text(item.location),
+                $('<td class="price">').text(item.price),
+                $('<td class="description">').text(item.description),
                 $('<td class="EditLink">').append(editLink),
                 $('<td class="DelButton">').append(delBtn)
               );
@@ -84,16 +88,49 @@
         </script>
     </head>
     <body>
-      <h1> Sports Eventer </h1>
+    <nav class="navbar navbar-inverse" style="font-size: 20px;">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="/" style="font-size: 25px;">SportsEventer</a>
+        </div>
+        <ul class="nav navbar-nav navbar-right">
+            <li><a href="/newEvent"><span class="glyphicon glyphicon-plus"></span> Create an Event</a></li>
+            <li><a href="/myProfile"><span class="glyphicon glyphicon-user"></span> My Profile</a></li>
+            <li><a href="/logout"><span class="glyphicon glyphicon-log-out"></span> Log out</a></li>
+        </ul>
+      </div>
+    </nav>
+    <div class="container">
+    <div class="content">
       <header>
-        <button type="button" onclick="window.location='/'">Home</button>
-        <a href="/myProfile/{{user.user_id}}/edit">Edit Profile</a>
-        <h2>Hello, {{user.username}}!</h2>
+        <h1>My info</h1>
       </header>
-
-      <table>
+      <label><b>Username: </b></label>
+      <label><b> {{user.username}} </b></label> <br>
+      <label><b>Email: </b></label>
+      <label><b> {{user.email}} </b></label> <br>
+      
+      <h2>My events</h2>
+      <table id="events">
+        <tr>
+          <th>Number</th>
+          <th>Organizator</th>
+          <th>Type</th>
+          <th>People Participating</th>
+          <th>People Needed</th>
+          <th>Date</th>
+          <th>Time</th>
+          <th>Location</th>
+          <th>Price</th>
+          <th>Descriptions</th>
+          <th colspan="2">Actions</th>
+        </tr>
 
       </table>
+      <br><br>
+      <a id="edit_profile" href="/myProfile/{{user.user_id}}/edit">Edit Profile</a>
+    </div>
+    </div>
 
     </body>
 </html>

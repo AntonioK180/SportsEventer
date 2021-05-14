@@ -32,7 +32,7 @@
           var user_id = {{user.user_id}}
 
           function loadMyEvents(myEvents){
-            var tableObject = $('table');
+            var tableObject = $("#events");
             $.each(myEvents, function(i, item){
               var str = '<tr id="'+item.event_id+'">"';
               var editLink = '<a href="/myProfile/editEvent?event_id='+item.event_id+'">EDIT</a>';
@@ -51,7 +51,7 @@
                 $('<td class="EditLink">').append(editLink),
                 $('<td class="DelButton">').append(delBtn)
               );
-              $("table").append(tr);
+              $("#events").append(tr);
 
               $("#delBtn_"+item.event_id).click(function(){
                 $.ajax({
@@ -79,10 +79,48 @@
             return deferred.promise();
           }
 
+          function loadJoinedEvents(joinedEvents){
+            var tableObject = $("#joined_events");
+            $.each(joinedEvents, function(i, item){
+              var str = '<tr id="'+item.event_id+'">';
+              var tr = $(str).append(
+                $('<td class="event_id">').text(item.event_id),
+                $('<td class="created_by">').text(item.created_by + "'s "),
+                $('<td class="sport">').text(item.sport + " event "),
+                $('<td class="people_participating">').text(item.people_participating),
+                $('<td class="people_needed">').text(item.people_needed),
+                $('<td class="date">').text(item.date),
+                $('<td class="time">').text(item.time),
+                $('<td class="loacation">').text(item.location),
+                $('<td class="price">').text(item.price),
+                $('<td class="description">').text(item.description)
+              );
+              $("#joined_events").append(tr);
+            })
+          }
+
+          function getJoinedEvents(){
+            let deferred = $.Deferred();
+            $.ajax({
+              url: "http://localhost:5000/rest/events/getjoined?user_id=" + user_id,
+              dataType: "json",
+              type: "GET",
+              success: function(result){
+                data = result;
+                deferred.resolve();
+              }
+            });
+            return deferred.promise();
+          }
+
+
           $(document).ready(function(){
             $.when(getMyEvents()).done(function(){
               loadMyEvents(data);
             });
+            $.when(getJoinedEvents()).done(function(){
+              loadJoinedEvents(data);
+            })
           });
 
         </script>
@@ -129,6 +167,21 @@
       </table>
       <br><br>
       <a id="edit_profile" href="/myProfile/{{user.user_id}}/edit">Edit Profile</a>
+      <h3>Events I participate in</h3>
+      <table id="joined_events">
+        <tr>
+          <th>Number</th>
+          <th>Organizator</th>
+          <th>Type</th>
+          <th>People Participating</th>
+          <th>People Needed</th>
+          <th>Date</th>
+          <th>Time</th>
+          <th>Location</th>
+          <th>Price</th>
+          <th>Descriptions</th>
+        </tr>
+      </table>
     </div>
     </div>
 

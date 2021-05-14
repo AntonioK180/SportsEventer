@@ -43,6 +43,23 @@ class User:
         else:
             return User(*row)
 
+    @staticmethod
+    def get_joined_events(user_id):
+        query = 'SELECT event_id FROM UsersEvents WHERE user_id=%s'
+        value = (user_id,)
+        cursor.execute(query, value)
+        result = cursor.fetchall()
+        events = []
+        if result is None:
+            return;
+        else:
+            for row in results:
+                events.append(Event.find(*row))
+            if len(events) == 0:
+                return;
+            else:
+                return events
+
 
     @staticmethod
     def hash_password(pwd):

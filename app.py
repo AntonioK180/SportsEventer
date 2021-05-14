@@ -144,6 +144,18 @@ def REST_GetEvents():
         )
     return response
 
+@app.route('/rest/events/getjoined', methods=['GET'])
+@cross_origin()
+def REST_GetJoinedEvents():
+    if 'user_id' in request.args:
+        response = app.response_class(
+            response = json.dumps(User.get_joined_events(request.args['user_id']), indent=4, cls=EventEncoder),
+            status = 200,
+            mimetype = 'application/json'
+        )
+        return response
+
+
 
 @app.route('/rest/events/delete', methods=['DELETE'])
 def REST_DeleteEvent():

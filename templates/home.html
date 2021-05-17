@@ -18,7 +18,6 @@
             document.getElementById("filters").style.display = "block";
           }
 
-          
 
           function loadAllEvents(allEvents){
             var tableObject = $('table');
@@ -88,10 +87,10 @@
             return deferred.promise();
           }
 
-          function getFilteredData(sport, minprice, maxprice, date){
+          function getFilteredData(urlToUse){
             let deferred = $.Deferred();
             $.ajax({
-              url: "http://localhost:5000/rest/events/getfiltered?sport=" + sport + "&minprice=" + minprice + "&maxprice=" + maxprice,
+              url: urlToUse,
               dateType: "json",
               type: "GET",
               success: function(result){
@@ -101,29 +100,47 @@
             });
             return deferred.promise();
           }
-/*
+
+
+
           $(document).ready(function(){
-            $('#flt_button').click(function(){
-                var sport_val = $("#sport").val();
-                var minprice_val = $("#minprice").val();
-                var maxprice_val = $("#maxprice").val();
-                var date_val = $("#date").val();
-                $.when(getFilteredData(sport_val, minprice_val, maxprice_val, date_val)).done(function(){
-                    data = filterData;
-                    //loadAllEvents(filterData);
+            var check = 0;
+            $.when(getData()).done(function(){
+              loadAllEvents(data);
+              $("#filter_button").click(function(){
+                check = 1;
+
+                var sportVal = $("#sport").val();
+                var minpriceVal = $("#minprice").val();
+                var maxpriceVal = $("maxprice").val();
+                var urlToUse = "http://localhost:5000/rest/events/getfiltered?";
+                var parametersInUse = 0;
+
+                if(sportVal.length === 0){
+
+                } else {
+                  if (parametersInUse > 0){
+                    urlToUse += "&sport=" + sportVal;
+                  } else {
+                    urlToUse += "sport=" + sportVal;
+                  }
+                  parametersInUse++;
                 }
-                document.getElementById("filters").style.display = "block";
-            });
-            $.when(getData()).done(function(){
-              loadAllEvents(data);
-            });
-          });
 
-*/
+                $("#events tr").remove();
 
-          $(document).ready(function(){
-            $.when(getData()).done(function(){
-              loadAllEvents(data);
+                $.when(getFilteredData(urlToUse)).done(function(){
+                  $("#events tr").remove();
+                  console.log(filterData);
+                  loadAllEvents(filterData);
+
+                })
+
+
+
+                document.getElementById("filters").style.display = "none";
+
+              })
             });
           });
 
@@ -183,10 +200,9 @@
         <input type="number" name="maxprice" id="maxprice"><br>
         <label for="date"><b>Date</b></label>
         <input type="date" name="date" id="date"><br>
-        <button type="submit" class="flt_btn" id="flt_btn">Submit</button>
+        <button type="button" class="filter_" id="filter_button">Submit</button>
       </form>
     </div>
 
     </body>
 </html>
-

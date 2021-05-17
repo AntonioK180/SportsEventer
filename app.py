@@ -14,6 +14,9 @@ app.config['SECRET_KEY'] = 'bigsecreet'
 @app.route('/')
 def home():
     app.logger.info("Running...")
+    eventsReceived = Event.get_filtered_events("football", None, None)
+    for i in eventsReceived:
+        print(i.event_id)
     if 'loggedin' in session:
         return render_template('home.html', loggedin=True, user_id=session['id'])
     else:
@@ -155,7 +158,15 @@ def REST_GetJoinedEvents():
         )
         return response
 
-
+@app.route('/rest/events/getfiltered', methods=['GET'])
+@cross_origin()
+def REST_GetFilteredEvents():
+        response = app.response_class(
+            response = json.dumps(Event.get_filtered_events(request.args['sport'], request.args['minprice'], request.args['maxprice']), indent=4, cls=EventEncoder),
+            status = 200,
+            mimetype = 'application/json'
+        )
+        return response
 
 @app.route('/rest/events/delete', methods=['DELETE'])
 def REST_DeleteEvent():

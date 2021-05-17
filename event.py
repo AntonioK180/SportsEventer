@@ -65,24 +65,37 @@ class Event():
             else:
                 return events
 
-    def get_filtered_events(sport, min_price, max_price, date):
-        query = 'SELECT * FROM Events WHERE %s AND %s AND %s'
+    @staticmethod
+    def get_filtered_events(sport, min_price, max_price):
+        print("In the function")
+        start_query = 'SELECT * FROM Events WHERE '
+        and_query = ' AND '
         if sport != "All sports":
-            sport_query = ('sport = "%s"', sport)
+            print("In the sports if")
+            sport_query = 'sport = "' + sport + '"'
+            print(sport_query)
         else:
             sport_value = ('sport IS NOT NULL')
-        if min_price != -1 and max_price != -1:
-            price_query = ('price BETWEEN %s AND %s', min_price, max_price)
-        elif min_price != -1 and max_price == -1:
-            price_query = ('price > %s', min_price)
-        elif min_price == -1 and max_price != -1:
-            price_query = ('price < %s', min_price)
+        if min_price is not None and max_price is not None:
+            print("In price if")
+            price_query = 'price BETWEEN ' + str(min_price) + ' AND ' + str(max_price)
+        elif min_price is not None and max_price is None:
+            price_query = 'price >= ' + str(min_price)
+        elif min_price is None and max_price is not None:
+            price_query = 'price <= ' + str(max_price)
         else:
             price_query = ('price IS NOT NULL')
-        if(date is not None):
-            date_query = ('event_date = "%s"', date)
-        else:
-            date_query = ('event_date IS NOT NULL')
+        print("Outside ifs")
+        query = start_query + sport_query + and_query + price_query
+        print(query)
+        print("After the tuple")
+        cur.execute(query)
+        print("After the execute")
+        result = cur.fetchall()
+        print("After the fetch")
+        if result is None:
+            return
+        return [Event(*row) for row in result]
 
 
 

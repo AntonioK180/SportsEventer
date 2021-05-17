@@ -11,26 +11,14 @@
 
         <script>
           let data;
-          let filtered_data;
-          var user_id = {{user_id}}
+          let filterData;
+          var user_id = {{user_id}} ;
 
           function openFilters(){
             document.getElementById("filters").style.display = "block";
           }
 
-          function getFilteredData(){
-            let deferred = $.Deferred();
-            $.ajax({
-              url: "http://localhost:5000/rest/events",
-              dataType: "json",
-              type: "GET",
-              success: function(result){
-                data = result;
-                deferred.resolve();
-              }
-            });
-            return deferred.promise();
-          }
+          
 
           function loadAllEvents(allEvents){
             var tableObject = $('table');
@@ -86,7 +74,6 @@
             })
           }
 
-
           function getData(){
             let deferred = $.Deferred();
             $.ajax({
@@ -101,12 +88,45 @@
             return deferred.promise();
           }
 
+          function getFilteredData(sport, minprice, maxprice, date){
+            let deferred = $.Deferred();
+            $.ajax({
+              url: "http://localhost:5000/rest/events/getfiltered?sport=" + sport + "&minprice=" + minprice + "&maxprice=" + maxprice,
+              dateType: "json",
+              type: "GET",
+              success: function(result){
+                filterData = result;
+                deferred.resolve();
+              }
+            });
+            return deferred.promise();
+          }
+/*
+          $(document).ready(function(){
+            $('#flt_button').click(function(){
+                var sport_val = $("#sport").val();
+                var minprice_val = $("#minprice").val();
+                var maxprice_val = $("#maxprice").val();
+                var date_val = $("#date").val();
+                $.when(getFilteredData(sport_val, minprice_val, maxprice_val, date_val)).done(function(){
+                    data = filterData;
+                    //loadAllEvents(filterData);
+                }
+                document.getElementById("filters").style.display = "block";
+            });
+            $.when(getData()).done(function(){
+              loadAllEvents(data);
+            });
+          });
+
+*/
 
           $(document).ready(function(){
             $.when(getData()).done(function(){
               loadAllEvents(data);
             });
           });
+
 
         </script>
 
@@ -150,7 +170,7 @@
       <form class="form-container">
         <h1>Filters</h1>
         <label for="sport"><b>Sport</b></label>
-        <select name="sport">
+        <select name="sport" id="sport">
             <option value="all">All sports</option>
             <option value="football">Football</option>
             <option value="basketball">Basketball</option>
@@ -158,12 +178,12 @@
             <option value="tennis">Tennis</option>
         </select><br>
         <label for="minprice"><b>Min. Price</b></label>
-        <input type="number" name="minprice"><br>
+        <input type="number" name="minprice" id="minprice"><br>
         <label for="maxprice">Max. Price</b></label>
-        <input type="number" name="maxprice"><br>
+        <input type="number" name="maxprice" id="maxprice"><br>
         <label for="date"><b>Date</b></label>
-        <input type="date" name="date"><br>
-        <button type="submit" class="flt_btn" onclick="getFilteredData()">Submit</button>
+        <input type="date" name="date" id="date"><br>
+        <button type="submit" class="flt_btn" id="flt_btn">Submit</button>
       </form>
     </div>
 

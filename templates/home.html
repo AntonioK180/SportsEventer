@@ -11,7 +11,26 @@
 
         <script>
           let data;
+          let filtered_data;
           var user_id = {{user_id}}
+
+          function openFilters(){
+            document.getElementById("filters").style.display = "block";
+          }
+
+          function getFilteredData(){
+            let deferred = $.Deferred();
+            $.ajax({
+              url: "http://localhost:5000/rest/events",
+              dataType: "json",
+              type: "GET",
+              success: function(result){
+                data = result;
+                deferred.resolve();
+              }
+            });
+            return deferred.promise();
+          }
 
           function loadAllEvents(allEvents){
             var tableObject = $('table');
@@ -116,6 +135,7 @@
     <div class="container">
       <div class="content">
         <h1>Events</h1>
+        <button class="open-button" onclick="openFilters()">Filters</button>
         <table id="events">
             <tr>
               <th>Number</th>
@@ -125,6 +145,26 @@
             </tr>
         </table>
       </div>
+    </div>
+    <div class="form-popup" id="filters">
+      <form class="form-container">
+        <h1>Filters</h1>
+        <label for="sport"><b>Sport</b></label>
+        <select name="sport">
+            <option value="all">All sports</option>
+            <option value="football">Football</option>
+            <option value="basketball">Basketball</option>
+            <option value="volleyball">Volleyball</option>
+            <option value="tennis">Tennis</option>
+        </select><br>
+        <label for="minprice"><b>Min. Price</b></label>
+        <input type="number" name="minprice"><br>
+        <label for="maxprice">Max. Price</b></label>
+        <input type="number" name="maxprice"><br>
+        <label for="date"><b>Date</b></label>
+        <input type="date" name="date"><br>
+        <button type="submit" class="flt_btn" onclick="getFilteredData()">Submit</button>
+      </form>
     </div>
 
     </body>

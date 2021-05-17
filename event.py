@@ -65,6 +65,27 @@ class Event():
             else:
                 return events
 
+    def get_filtered_events(sport, min_price, max_price, date):
+        query = 'SELECT * FROM Events WHERE %s AND %s AND %s'
+        if sport != "All sports":
+            sport_query = ('sport = "%s"', sport)
+        else:
+            sport_value = ('sport IS NOT NULL')
+        if min_price != -1 and max_price != -1:
+            price_query = ('price BETWEEN %s AND %s', min_price, max_price)
+        elif min_price != -1 and max_price == -1:
+            price_query = ('price > %s', min_price)
+        elif min_price == -1 and max_price != -1:
+            price_query = ('price < %s', min_price)
+        else:
+            price_query = ('price IS NOT NULL')
+        if(date is not None):
+            date_query = ('event_date = "%s"', date)
+        else:
+            date_query = ('event_date IS NOT NULL')
+
+
+
 
     def create(self):
         query = "INSERT INTO Events (sport, created_by, people_participating, people_needed, event_date, event_time, location, price, description) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)"

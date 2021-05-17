@@ -77,7 +77,6 @@ class Event():
         else:
             sport_value = ('sport IS NOT NULL')
         if min_price is not None and max_price is not None:
-            print("In price if")
             price_query = 'price BETWEEN ' + str(min_price) + ' AND ' + str(max_price)
         elif min_price is not None and max_price is None:
             price_query = 'price >= ' + str(min_price)

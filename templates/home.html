@@ -112,9 +112,11 @@
 
                 var sportVal = $("#sport").val();
                 var minpriceVal = $("#minprice").val();
-                var maxpriceVal = $("maxprice").val();
+                var maxpriceVal = $("#maxprice").val();
                 var urlToUse = "http://localhost:5000/rest/events/getfiltered?";
                 var parametersInUse = 0;
+
+                console.log(sportVal);
 
                 if(sportVal.length === 0){
 
@@ -126,6 +128,31 @@
                   }
                   parametersInUse++;
                 }
+
+                if(minpriceVal.length === 0){
+
+                } else {
+                  if (parametersInUse > 0){
+                    urlToUse += "&minprice=" + minpriceVal;
+                  } else {
+                    urlToUse += "minprice=" + minpriceVal;
+                  }
+                  parametersInUse++;
+                }
+
+                if(maxpriceVal.length === 0){
+
+                } else {
+                  if (parametersInUse > 0){
+                    urlToUse += "&maxprice=" + maxpriceVal;
+                  } else {
+                    urlToUse += "maxprice=" + maxpriceVal;
+                  }
+                  parametersInUse++;
+                }
+
+
+                console.log(minpriceVal);
 
                 $("#events tr").remove();
 

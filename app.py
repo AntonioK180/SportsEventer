@@ -163,7 +163,8 @@ def REST_GetFilteredEvents():
     maxprice = None
 
     if 'sport' in request.args:
-        sport = request.args['sport']
+        if request.args['sport'] != "all":
+            sport = request.args['sport']
 
     if 'minprice' in request.args:
         minprice = request.args['minprice']

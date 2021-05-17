@@ -68,15 +68,17 @@ class Event():
     @staticmethod
     def get_filtered_events(sport, min_price, max_price):
         print("In the function")
+        sport_query = 'sport IS NOT NULL'
         start_query = 'SELECT * FROM Events WHERE '
         and_query = ' AND '
-        if sport != "All sports":
+        if sport is not None:
             print("In the sports if")
             sport_query = 'sport = "' + sport + '"'
             print(sport_query)
         else:
             sport_value = ('sport IS NOT NULL')
         if min_price is not None and max_price is not None:
+            print("In price if")
             price_query = 'price BETWEEN ' + str(min_price) + ' AND ' + str(max_price)
         elif min_price is not None and max_price is None:
             price_query = 'price >= ' + str(min_price)

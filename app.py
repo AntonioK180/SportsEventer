@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for, session, flash
 import logging
-from event import Event, EventEncoder
+from event import EventEncoder, Event
 from user import User
 import json
 from flask_cors import CORS, cross_origin
@@ -144,6 +144,40 @@ def REST_GetEvents():
         )
     return response
 
+@app.route('/rest/events/getjoined', methods=['GET'])
+@cross_origin()
+def REST_GetJoinedEvents():
+    if 'user_id' in request.args:
+        response = app.response_class(
+            response = json.dumps(Event.get_joined_events(request.args['user_id']), indent=4, cls=EventEncoder),
+            status = 200,
+            mimetype = 'application/json'
+        )
+        return response
+
+@app.route('/rest/events/getfiltered', methods=['GET'])
+@cross_origin()
+def REST_GetFilteredEvents():
+    sport = None
+    minprice = None
+    maxprice = None
+
+    if 'sport' in request.args:
+        if request.args['sport'] != "all":
+            sport = request.args['sport']
+
+    if 'minprice' in request.args:
+        minprice = request.args['minprice']
+
+    if 'maxprice' in request.args:
+        maxprice = request.args['maxprice']
+
+    response = app.response_class(
+        response = json.dumps(Event.get_filtered_events(sport, minprice, maxprice), indent=4, cls=EventEncoder),
+        status = 200,
+        mimetype = 'application/json'
+    )
+    return response
 
 @app.route('/rest/events/delete', methods=['DELETE'])
 def REST_DeleteEvent():

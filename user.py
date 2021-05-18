@@ -44,6 +44,7 @@ class User:
             return User(*row)
 
 
+
     @staticmethod
     def hash_password(pwd):
         return generate_password_hash(pwd)

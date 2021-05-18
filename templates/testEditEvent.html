@@ -2,6 +2,11 @@
 <html>
     <head>
         <title>Edit your event</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='editEvent.css') }}">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script type="text/javascript">
           var getUrlParameter = function getUrlParameter(sParam) {
@@ -106,21 +111,53 @@
 
     </head>
     <body>
-      <h1> Sports Eventer for {{currentUser}} </h1>
-      <header>
-          <button type="button" onclick="window.location='/'">Home</button>
-      </header>
-
+      <nav class="navbar navbar-inverse" style="font-size: 20px;">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="/" style="font-size: 25px;">SportsEventer</a>
+        </div>
+        <ul class="nav navbar-nav navbar-right">
+            <li><a href="/newEvent"><span class="glyphicon glyphicon-plus"></span> Create an Event</a></li>
+            <li><a href="/myProfile"><span class="glyphicon glyphicon-user"></span> My Profile</a></li>
+            <li><a href="/logout"><span class="glyphicon glyphicon-log-out"></span> Log out</a></li>
+        </ul>
+      </div>
+      </nav>
+      <div class="content">
+      <h1>Edit Event</h1>
       <form id="formEdit" method="post">
-        <label>People participating:</label>  <input type="number" id="participating" name="participating" required><br>
-        <label>People needed:</label>         <input type="number" id="needed"        name="needed" required><br>
-        <label>Date:</label>                  <input type="date"   id="date"          name="date"><br>
-        <label>Time:</label>                  <input type="time"   id="time"          name="time"><br>
-        <label>Location:</label>              <input type="text"   id="location"      name="location"><br>
-        <label>Price per person:</label>      <input type="number" id="price"         name="price" required><br>
-        <label>Short description:</label>     <input type="text"   id="description"   name="description"><br><br>
+        <div class="group">
+        <label>People participating:</label><br>
+        <input type="number" id="participating" name="participating" required><br>
+        </div>
+        <div class="group">
+        <label>People needed:</label> <br>
+        <input type="number" id="needed"        name="needed" required><br>
+        </div>
+        <div class="group">
+        <label>Date:</label><br> 
+        <input type="date"   id="date"          name="date"><br>
+        </div>
+        <div class="group">
+        <label>Time:</label><br>
+        <input type="time"   id="time"          name="time"><br>
+        </div>
+        <div class="group">
+        <label>Price per person:</label><br>
+        <input type="number" id="price"         name="price" required><br>
+        </div>
+        <div class="group">
+        <label>Location:</label><br>
+        <input type="text"   id="location"      name="location"><br>
+        </div>
+        <div class="group">
+        <label>Short description:</label><br>
+        <textarea name="description" class="form-control" id="description" rows="3" maxlength="300"></textarea><br><br>
+        </div>
+        <div class="group">
         <input id="submit_btn" type="submit" value="Submit">
       </form>
+      </div>
 
     </body>
 </html>

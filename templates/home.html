@@ -11,6 +11,13 @@
 
         <script>
           let data;
+          let filterData;
+          var user_id = {{user_id}} ;
+
+          function openFilters(){
+            document.getElementById("filters").style.display = "block";
+          }
+
 
           function loadAllEvents(allEvents){
             var tableObject = $('table');
@@ -53,7 +60,7 @@
                   alert("YOU CANNOT JOIN THIS EVENT, BECAUSE IT IS FULL!");
                 }  else {
                   $.ajax({
-                    url: "http://localhost:5000/rest/events/join?event_id=" + item.event_id + "&user_id=" + {{user_id}},
+                    url: "http://localhost:5000/rest/events/join?event_id=" + item.event_id + "&user_id=" + user_id,
                     dataType: "json",
                     type: "PUT",
                     async: false
@@ -65,7 +72,6 @@
               })
             })
           }
-
 
           function getData(){
             let deferred = $.Deferred();
@@ -81,12 +87,90 @@
             return deferred.promise();
           }
 
+          function getFilteredData(urlToUse){
+            let deferred = $.Deferred();
+            $.ajax({
+              url: urlToUse,
+              dateType: "json",
+              type: "GET",
+              success: function(result){
+                filterData = result;
+                deferred.resolve();
+              }
+            });
+            return deferred.promise();
+          }
+
+
 
           $(document).ready(function(){
+            var check = 0;
             $.when(getData()).done(function(){
               loadAllEvents(data);
+              $("#filter_button").click(function(){
+                check = 1;
+
+                var sportVal = $("#sport").val();
+                var minpriceVal = $("#minprice").val();
+                var maxpriceVal = $("#maxprice").val();
+                var urlToUse = "http://localhost:5000/rest/events/getfiltered?";
+                var parametersInUse = 0;
+
+                console.log(sportVal);
+
+                if(sportVal.length === 0){
+
+                } else {
+                  if (parametersInUse > 0){
+                    urlToUse += "&sport=" + sportVal;
+                  } else {
+                    urlToUse += "sport=" + sportVal;
+                  }
+                  parametersInUse++;
+                }
+
+                if(minpriceVal.length === 0){
+
+                } else {
+                  if (parametersInUse > 0){
+                    urlToUse += "&minprice=" + minpriceVal;
+                  } else {
+                    urlToUse += "minprice=" + minpriceVal;
+                  }
+                  parametersInUse++;
+                }
+
+                if(maxpriceVal.length === 0){
+
+                } else {
+                  if (parametersInUse > 0){
+                    urlToUse += "&maxprice=" + maxpriceVal;
+                  } else {
+                    urlToUse += "maxprice=" + maxpriceVal;
+                  }
+                  parametersInUse++;
+                }
+
+
+                console.log(minpriceVal);
+
+                $("#events tr").remove();
+
+                $.when(getFilteredData(urlToUse)).done(function(){
+                  $("#events tr").remove();
+                  console.log(filterData);
+                  loadAllEvents(filterData);
+
+                })
+
+
+
+                document.getElementById("filters").style.display = "none";
+
+              })
             });
           });
+
 
         </script>
 
@@ -115,6 +199,7 @@
     <div class="container">
       <div class="content">
         <h1>Events</h1>
+        <button class="open-button" onclick="openFilters()">Filters</button>
         <table id="events">
             <tr>
               <th>Number</th>
@@ -125,7 +210,26 @@
         </table>
       </div>
     </div>
+    <div class="form-popup" id="filters">
+      <form class="form-container">
+        <h1>Filters</h1>
+        <label for="sport"><b>Sport</b></label>
+        <select name="sport" id="sport">
+            <option value="all">All sports</option>
+            <option value="football">Football</option>
+            <option value="basketball">Basketball</option>
+            <option value="volleyball">Volleyball</option>
+            <option value="tennis">Tennis</option>
+        </select><br>
+        <label for="minprice"><b>Min. Price</b></label>
+        <input type="number" name="minprice" id="minprice"><br>
+        <label for="maxprice">Max. Price</b></label>
+        <input type="number" name="maxprice" id="maxprice"><br>
+        <label for="date"><b>Date</b></label>
+        <input type="date" name="date" id="date"><br>
+        <button type="button" class="filter_" id="filter_button">Submit</button>
+      </form>
+    </div>
 
     </body>
 </html>
-

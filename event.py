@@ -2,7 +2,7 @@ from db_config import mydb
 from json import JSONEncoder
 
 
-cur = mydb.cursor()
+cur = mydb.cursor(buffered=True)
 
 
 class Event():
@@ -47,6 +47,59 @@ class Event():
             return
         return [Event(*row) for row in result]
 
+    @staticmethod
+    def get_joined_events(user_id):
+        query = 'SELECT event_id FROM UsersEvents WHERE user_id=%s'
+        value = (user_id,)
+        print(user_id)
+        cur.execute(query, value)
+        results = cur.fetchall()
+        events = []
+        if results is None:
+            return;
+        else:
+            for row in results:
+                events.append(Event.find(*row))
+            if len(events) == 0:
+                return;
+            else:
+                return events
+
+    @staticmethod
+    def get_filtered_events(sport, min_price, max_price):
+        print("In the function")
+        sport_query = 'sport IS NOT NULL'
+        start_query = 'SELECT * FROM Events WHERE '
+        and_query = ' AND '
+        if sport is not None:
+            print("In the sports if")
+            sport_query = 'sport = "' + sport + '"'
+            print(sport_query)
+        else:
+            sport_value = ('sport IS NOT NULL')
+        if min_price is not None and max_price is not None:
+            print("In price if")
+            price_query = 'price BETWEEN ' + str(min_price) + ' AND ' + str(max_price)
+        elif min_price is not None and max_price is None:
+            price_query = 'price >= ' + str(min_price)
+        elif min_price is None and max_price is not None:
+            price_query = 'price <= ' + str(max_price)
+        else:
+            price_query = ('price IS NOT NULL')
+        print("Outside ifs")
+        query = start_query + sport_query + and_query + price_query
+        print(query)
+        print("After the tuple")
+        cur.execute(query)
+        print("After the execute")
+        result = cur.fetchall()
+        print("After the fetch")
+        if result is None:
+            return
+        return [Event(*row) for row in result]
+
+
+
 
     def create(self):
         query = "INSERT INTO Events (sport, created_by, people_participating, people_needed, event_date, event_time, location, price, description) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)"
@@ -78,6 +131,7 @@ class Event():
         mydb.commit()
         self.people_participating += 1
         self.save()
+
 
 
 

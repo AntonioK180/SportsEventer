@@ -107,3 +107,17 @@ header > a:hover{
   color: #9d9d9d;
   font-size: 20px;
 }
+
+.form-popup {
+  display: none;
+  position: fixed;
+  bottom: 50%;
+  right: 50%;
+  border: 3px solid #f1f1f1;
+}
+
+.form-container {
+  max-width: 300px;
+  padding: 10px;
+  background-color: white;
+}

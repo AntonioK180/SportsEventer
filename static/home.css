@@ -1,3 +1,4 @@
+
 body{
   display: flex;
   overflow: auto;
@@ -26,7 +27,7 @@ h1{
   background-color:rgba(255,255,255,.8);
   border-radius:.25em;
   box-shadow:0 0 .25em rgba(0, 0, 0, 0.25);
-  box-sizing:border-box;
+  box-sizing: border-box;
   left:50%;
   padding: 5vmin 10vmin;
   position: absolute;
@@ -108,16 +109,55 @@ header > a:hover{
   font-size: 20px;
 }
 
+#open_flt_btn{
+  background-color: #222;
+  border: 1px solid #222;
+  color: #9d9d9d;
+  border-radius: 5px;
+  width: 16%;
+  height: 6%;
+  font-size: 18px;
+}
+
+#open_flt_btn:hover{
+    color: white;
+}
+
+
 .form-popup {
   display: none;
-  position: fixed;
-  bottom: 50%;
-  right: 50%;
-  border: 3px solid #f1f1f1;
 }
 
 .form-container {
-  max-width: 300px;
-  padding: 10px;
-  background-color: white;
+  background-color:rgba(255,255,255,.8);
+  border-radius:.25em;
+  box-shadow:0 0 .25em rgba(0, 0, 0, 0.25);
+  box-sizing: border-box;
+  left:88%;
+  padding: 5vmin 10vmin;
+  position: absolute;
+  text-align: center;
+  top:35%;
+  transform:translate(-50%, -50%);
+  height: 40%;
+  width: 20%;
+  overflow: auto;
+}
+
+#filter_button {
+  background-color: #222;
+  border: 1px solid #222;
+  color: #9d9d9d;
+  border-radius: 5px;
+  width: 68%;
+  height: 12%;
+  font-size: 18px;
+}
+
+#filter_button:hover{
+    color: white;
+}
+
+.group{
+    margin-bottom: 15px;
 }

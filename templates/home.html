@@ -13,9 +13,18 @@
           let data;
           let filterData;
           var user_id = {{user_id}} ;
+          var filter_open = 0;
 
           function openFilters(){
-            document.getElementById("filters").style.display = "block";
+            if(filter_open == 0){
+              document.getElementById("filters").style.display = "block";
+              filter_open = 1;
+            }
+            else{
+              document.getElementById("filters").style.display = "none";
+              filter_open = 0;
+            }
+            
           }
 
 
@@ -199,7 +208,7 @@
     <div class="container">
       <div class="content">
         <h1>Events</h1>
-        <button class="open-button" onclick="openFilters()">Filters</button>
+        <button class="open-button" id="open_flt_btn" onclick="openFilters()">Filters</button>
         <table id="events">
             <tr>
               <th>Number</th>
@@ -212,7 +221,8 @@
     </div>
     <div class="form-popup" id="filters">
       <form class="form-container">
-        <h1>Filters</h1>
+        <h1 id="fh">Filters</h1>
+        <div class="group">
         <label for="sport"><b>Sport</b></label>
         <select name="sport" id="sport">
             <option value="all">All sports</option>
@@ -221,12 +231,19 @@
             <option value="volleyball">Volleyball</option>
             <option value="tennis">Tennis</option>
         </select><br>
+        </div>
+        <div class="group">
         <label for="minprice"><b>Min. Price</b></label>
         <input type="number" name="minprice" id="minprice"><br>
+        </div>
+        <div class="group">
         <label for="maxprice">Max. Price</b></label>
         <input type="number" name="maxprice" id="maxprice"><br>
+        </div>
+        <div class="group">
         <label for="date"><b>Date</b></label>
         <input type="date" name="date" id="date"><br>
+        </div>
         <button type="button" class="filter_" id="filter_button">Submit</button>
       </form>
     </div>

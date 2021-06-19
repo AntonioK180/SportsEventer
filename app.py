@@ -108,7 +108,7 @@ def new_event():
 @app.route('/myProfile/editEvent', methods=['GET', 'POST'])
 def edit_event():
     if request.method == 'GET':
-        return render_template('testEditEvent.html', currentUser=session['username'])
+        return render_template('editEvent.html', currentUser=session['username'])
     elif request.method == 'POST':
         if 'event_id' in request.args:
             event = Event.find(request.args['event_id'])

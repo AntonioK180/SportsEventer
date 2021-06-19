@@ -23,15 +23,6 @@
 		<div class="content" id=login>
 		<h1><strong> Log in </strong></h1>
 
-		{% with messages = get_flashed_messages() %}
-			{% if messages %}
-				{% for message in messages %}
-					<p class="message">{{message}}</p>
-				{% endfor %}
-			{% endif %}
-		{% endwith %}
-
-
 		<form action="/login" method="post">
 			<div class="group">
 			<label>Username</label>

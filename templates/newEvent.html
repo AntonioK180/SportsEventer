@@ -62,16 +62,6 @@
       <h1> Create an Event </h1>
       <div id=create_event>
 
-      {% with messages = get_flashed_messages() %}
-        {% if messages %}
-          <ul class=flashes>
-            {% for message in messages %}
-              <li>{{ message }}</li>
-            {% endfor %}
-          </ul>
-        {% endif %}
-      {% endwith %}
-
       <form action="/newEvent" method="post">
           <div class="group">
           <label>Sport:</label><br>
@@ -99,10 +89,17 @@
             <label>Price per person:</label><br>
             <input id="price" type="number" name="price" class="req" required><br>
           </div>
+
           <div class="group">
             <label>Location:</label><br>
-            <input type="text" id="location" name="location" class="req" required><br>
+            <select name="location">
+              <option value="mladost"  >zh.k. Mladost I</option>
+              <option value="sportna_sofia">Sportna Sofia</option>
+              <option value="balonite">Balonite</option>
+              <option value="center"    >Sporten Centyr "Crystal"</option>
+            </select><br>
           </div>
+
           <div class="group">
             <label>Short description:</label><br>
             <textarea name="description" class="form-control" id="Description" rows="3" maxlength="300"></textarea><br><br>

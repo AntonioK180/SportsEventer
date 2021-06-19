@@ -38,7 +38,7 @@ class Event():
 
 
     @staticmethod
-    def findByUsername(created_by):
+    def find_by_username(created_by):
         query = "SELECT * FROM Events WHERE created_by = %s"
         value = (created_by,)
         cur.execute(query, value)
@@ -124,7 +124,7 @@ class Event():
         mydb.commit()
 
 
-    def addUserToEvent(self, user_id):
+    def add_user_to_event(self, user_id):
         query = "INSERT INTO UsersEvents(event_id, user_id) VALUES(%s, %s)"
         value = (self.event_id, user_id)
         cur.execute(query, value)

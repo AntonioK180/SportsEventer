@@ -1,16 +1,27 @@
+import unittest
 from selenium import webdriver
-import time
+import page
 
 
 PATH = "/usr/local/share/chromedriver"
-driver = webdriver.Chrome(PATH)
 
-driver.get("http://127.0.0.1:5000/")
+class SportsEventerTests(unittest.TestCase):
 
-search = driver.find_element_by_id("registration_link")
-time.sleep(2)
-search.click()
+    def setUp(self):
+        print("setup")
+        self.driver = webdriver.Chrome(PATH)
+        self.driver.get("http://127.0.0.1:5000/")
 
-time.sleep(5)
+    def test_example(self):
+        assert True
 
-driver.quit()
+    def test_title(self):
+        mainPage = page.MainPage(self.driver)
+        return mainPage.is_title_matches()
+
+    def tearDown(self):
+        self.driver.close()
+
+
+if __name__ == "__main__":
+    unittest.main()

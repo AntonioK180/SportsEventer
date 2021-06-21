@@ -3,7 +3,7 @@ from selenium import webdriver
 import page
 
 
-PATH = "/usr/local/share/chromedriver"
+PATH = "/Users/Antonio/AppData/Local/chromedriver.exe"
 
 class SportsEventerTests(unittest.TestCase):
 

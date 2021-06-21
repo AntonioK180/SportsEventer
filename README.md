@@ -71,4 +71,3 @@ This is a visual representation of how the site should look:
 	 - Marking if someone doesn't show up to an event or is late
   3. Creating Tournament Events
   4. Forgotten Password Option
-  5. Calendar

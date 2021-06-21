@@ -1,7 +1,5 @@
-from flask import Flask
 from werkzeug.security import generate_password_hash, check_password_hash
 from db_config import mydb
-
 
 cursor = mydb.cursor(buffered=True)
 
@@ -20,7 +18,6 @@ class User:
         cursor.execute(query, value)
         mydb.commit()
         return 1
-
 
     @staticmethod
     def get_user_by_username(username):
@@ -54,7 +51,6 @@ class User:
             return
         else:
             return User(*row)
-
 
     @staticmethod
     def hash_password(pwd):

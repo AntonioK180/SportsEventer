@@ -8,7 +8,6 @@ from flask_mail import Mail, Message
 from itsdangerous import URLSafeTimedSerializer
 
 
-
 app = Flask(__name__)
 mail = Mail(app)
 cors = CORS(app)
@@ -22,6 +21,7 @@ app.config['MAIL_USE_TLS'] = False
 app.config['MAIL_USE_SSL'] = True
 mail = Mail(app)
 serializer = URLSafeTimedSerializer(app.config["SECRET_KEY"])
+
 
 @app.route('/')
 def home():
@@ -112,8 +112,7 @@ def my_profile():
 
 
 @app.route('/myProfile/<int:user_id>/edit')
-def edit_profile(user_id):
-    user = User.get_user_by_id(user_id)
+def edit_profile():
 
     return render_template('editProfile.html')
 
@@ -133,9 +132,9 @@ def new_event():
         price = request.form['price']
         description = request.form['description']
 
-        new_event = Event(None, session['username'], sport, people_participating,
-                          people_needed, date, time, location, price, description)
-        new_event.create()
+        event = Event(None, session['username'], sport, people_participating,
+                      people_needed, date, time, location, price, description)
+        event.create()
         return redirect('/')
 
 
@@ -166,28 +165,30 @@ def REST_get_events():
     if 'user_id' in request.args:
         user = User.get_user_by_id(request.args['user_id'])
         response = app.response_class(
-            response = json.dumps(Event.find_by_username(user.username), indent=4, cls=EventEncoder),
-            status = 200,
-            mimetype = 'application/json'
+            response=json.dumps(Event.find_by_username(user.username), indent=4, cls=EventEncoder),
+            status=200,
+            mimetype='application/json'
         )
     else:
         response = app.response_class(
-            response = json.dumps(Event.all(), indent=4, cls=EventEncoder),
-            status = 200,
-            mimetype = 'application/json'
+            response=json.dumps(Event.all(), indent=4, cls=EventEncoder),
+            status=200,
+            mimetype='application/json'
         )
     return response
+
 
 @app.route('/rest/events/getjoined', methods=['GET'])
 @cross_origin()
 def REST_get_joined_events():
     if 'user_id' in request.args:
         response = app.response_class(
-            response = json.dumps(Event.get_joined_events(request.args['user_id']), indent=4, cls=EventEncoder),
-            status = 200,
-            mimetype = 'application/json'
+            response=json.dumps(Event.get_joined_events(request.args['user_id']), indent=4, cls=EventEncoder),
+            status=200,
+            mimetype='application/json'
         )
         return response
+
 
 @app.route('/rest/events/getfiltered', methods=['GET'])
 @cross_origin()
@@ -207,11 +208,12 @@ def REST_get_filtered_events():
         maxprice = request.args['maxprice']
 
     response = app.response_class(
-        response = json.dumps(Event.get_filtered_events(sport, minprice, maxprice), indent=4, cls=EventEncoder),
-        status = 200,
-        mimetype = 'application/json'
+        response=json.dumps(Event.get_filtered_events(sport, minprice, maxprice), indent=4, cls=EventEncoder),
+        status=200,
+        mimetype='application/json'
     )
     return response
+
 
 @app.route('/rest/events/delete', methods=['DELETE'])
 def REST_delete_event():
@@ -228,9 +230,9 @@ def REST_edit_event():
         if request.method == 'GET':
             event = Event.find(request.args['event_id'])
             response = app.response_class(
-                response = json.dumps(event, indent=4, cls=EventEncoder),
-                status = 200,
-                mimetype = 'application/json'
+                response=json.dumps(event, indent=4, cls=EventEncoder),
+                status=200,
+                mimetype='application/json'
             )
             return response
         elif request.method == 'POST':
@@ -244,7 +246,7 @@ def REST_join_event():
             event = Event.find(request.args['event_id'])
             event.add_user_to_event(request.args['user_id'])
 
-    response = app.response_class(status = 200)
+    response = app.response_class(status=200)
     return response
 
 
@@ -255,21 +257,18 @@ def REST_get_username():
         print('THERE IS A USERNAME')
         if User.get_user_by_username(request.args['username']) is None:
             response = app.response_class(
-                response = json.dumps({"nameFree":1}),
-                status = 200,
-                mimetype = 'application/json'
+                response=json.dumps({"nameFree": 1}),
+                status=200,
+                mimetype='application/json'
             )
             return response
         else:
             response = app.response_class(
-                response = json.dumps({"nameFree":0}),
-                status = 200,
-                mimetype = 'application/json'
+                response=json.dumps({"nameFree": 0}),
+                status=200,
+                mimetype='application/json'
             )
             return response
-
-
-
 
 
 if __name__ == '__main__':

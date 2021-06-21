@@ -29,3 +29,5 @@ Flask-User==1.0.1.5
 pytest==3.0.5
 pytest-cov==2.4.0
 PyYAML~=5.4.1
+selenium~=3.141.0
+mysql-connector-python~=8.0.25

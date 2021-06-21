@@ -26,7 +26,7 @@ $(document).ready(function(){
       console.log(data["nameFree"]);
 
       if(data["nameFree"] == 0){
-        $("#username").after('<span class="error">This username is already taken.</span>');
+        $("#username").after('<span class="error" id="error">This username is already taken.</span>');
         console.log("USERNAME IS TAKEN");
         hasError = true;
       }
@@ -36,11 +36,11 @@ $(document).ready(function(){
 
     var emailVal = $("#email").val();
     if(emailVal == ''){
-      $("#email").after('<span class="error">Please enter your email address.</span>');
+      $("#email").after('<span class="error" id="error">Please enter your email address.</span>');
       console.log("EMPTY EMAIL");
       hasError = true;
     } else if(!emailReg.test(emailVal)){
-      $("#email").after('<span class="error">Enter a valid email address.</span>');
+      $("#email").after('<span class="error" id="error">Enter a valid email address.</span>');
       console.log("INVALID EMAIL");
       hasError = true;
     }

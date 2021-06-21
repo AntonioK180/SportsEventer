@@ -194,8 +194,8 @@
         <ul class="nav navbar-nav navbar-right">
         {% block content %}
           {% if loggedin == False %}
-            <li><a href="/login"><span class="glyphicon glyphicon-log-in"></span> Log in</a></li>
-            <li><a href="/register"><span class="glyphicon glyphicon-pencil"></span> Register</a></li>
+            <li><a href="/login" id="login_link"><span class="glyphicon glyphicon-log-in"></span> Log in</a></li>
+            <li><a href="/register" id="registration_link"><span class="glyphicon glyphicon-pencil"></span> Register</a></li>
           {% else %}
             <li><a href="/newEvent"><span class="glyphicon glyphicon-plus"></span> Create an Event</a></li>
             <li><a href="/myProfile"><span class="glyphicon glyphicon-user"></span> My Profile</a></li>

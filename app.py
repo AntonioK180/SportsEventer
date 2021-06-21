@@ -4,11 +4,23 @@ from event import EventEncoder, Event
 from user import User
 import json
 from flask_cors import CORS, cross_origin
+from flask_mail import Mail, Message
+from itsdangerous import URLSafeTimedSerializer
+
 
 app = Flask(__name__)
+mail = Mail(app)
 cors = CORS(app)
 logging.basicConfig(level=logging.DEBUG)
 app.config['SECRET_KEY'] = 'bigsecreet'
+app.config['MAIL_SERVER']='smtp.gmail.com'
+app.config['MAIL_PORT'] = 465
+app.config['MAIL_USERNAME'] = 'sportseventer@gmail.com'
+app.config['MAIL_PASSWORD'] = 'iskamkni6ka'
+app.config['MAIL_USE_TLS'] = False
+app.config['MAIL_USE_SSL'] = True
+mail = Mail(app)
+serializer = URLSafeTimedSerializer(app.config["SECRET_KEY"])
 
 
 @app.route('/')
@@ -32,10 +44,32 @@ def register():
             request.form['username'],
             User.hash_password(request.form['pwd'])
         )
-        User(*values).create()
-        app.logger.info("Successfully registered a new user!")
+        user = User(*values)
+        token = serializer.dumps(user.email, salt='email-confirm-key')
+        confirm_url = url_for(
+            'confirm_email',
+            token=token,
+            _external=True)
+
+        msg = Message('SportsEventer Registration', sender='sportseventer@gmail.com', recipients=[user.email])
+        msg.body = "Please follow the link to confirm your account: " + confirm_url
+        mail.send(msg)
         return redirect('/')
 
+
+@app.route('/confirm/<token>')
+def confirm_email(token):
+    email = serializer.loads(token, salt="email-confirm-key", max_age=86400)
+
+    user = User.get_user_by_email(email)
+
+
+    user.confirmed = True
+
+    user.create()
+    app.logger.info("Successfully registered a new user!")
+
+    return redirect('/login')
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():

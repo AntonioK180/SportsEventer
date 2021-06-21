@@ -71,21 +71,21 @@ def logout():
 
 @app.route('/myProfile')
 @cross_origin()
-def myProfile():
+def my_profile():
     currentUser = User.get_user_by_username(session['username'])
 
     return render_template('myProfile.html', user=currentUser)
 
 
 @app.route('/myProfile/<int:user_id>/edit')
-def editProfile(user_id):
+def edit_profile(user_id):
     user = User.get_user_by_id(user_id)
 
     return render_template('editProfile.html')
 
 
 @app.route('/newEvent', methods=['GET', 'POST'])
-def newEvent():
+def new_event():
     if request.method == 'GET':
 
         return render_template('newEvent.html')
@@ -106,9 +106,9 @@ def newEvent():
 
 
 @app.route('/myProfile/editEvent', methods=['GET', 'POST'])
-def editEvent():
+def edit_event():
     if request.method == 'GET':
-        return render_template('testEditEvent.html', currentUser=session['username'])
+        return render_template('editEvent.html', currentUser=session['username'])
     elif request.method == 'POST':
         if 'event_id' in request.args:
             event = Event.find(request.args['event_id'])
@@ -128,11 +128,11 @@ def editEvent():
 
 @app.route('/rest/events', methods=['GET'])
 @cross_origin()
-def REST_GetEvents():
+def REST_get_events():
     if 'user_id' in request.args:
         user = User.get_user_by_id(request.args['user_id'])
         response = app.response_class(
-            response = json.dumps(Event.findByUsername(user.username), indent=4, cls=EventEncoder),
+            response = json.dumps(Event.find_by_username(user.username), indent=4, cls=EventEncoder),
             status = 200,
             mimetype = 'application/json'
         )
@@ -146,7 +146,7 @@ def REST_GetEvents():
 
 @app.route('/rest/events/getjoined', methods=['GET'])
 @cross_origin()
-def REST_GetJoinedEvents():
+def REST_get_joined_events():
     if 'user_id' in request.args:
         response = app.response_class(
             response = json.dumps(Event.get_joined_events(request.args['user_id']), indent=4, cls=EventEncoder),
@@ -157,7 +157,7 @@ def REST_GetJoinedEvents():
 
 @app.route('/rest/events/getfiltered', methods=['GET'])
 @cross_origin()
-def REST_GetFilteredEvents():
+def REST_get_filtered_events():
     sport = None
     minprice = None
     maxprice = None
@@ -180,7 +180,7 @@ def REST_GetFilteredEvents():
     return response
 
 @app.route('/rest/events/delete', methods=['DELETE'])
-def REST_DeleteEvent():
+def REST_delete_event():
     if 'event_id' in request.args:
         event = Event.find(request.args['event_id'])
         event.delete()
@@ -189,7 +189,7 @@ def REST_DeleteEvent():
 
 
 @app.route('/rest/events/edit', methods=['GET', 'POST'])
-def REST_EditEvent():
+def REST_edit_event():
     if 'event_id' in request.args:
         if request.method == 'GET':
             event = Event.find(request.args['event_id'])
@@ -201,15 +201,14 @@ def REST_EditEvent():
             return response
         elif request.method == 'POST':
             data = request.get_json(force=True)
-            print(data)
 
 
 @app.route('/rest/events/join', methods=['GET', 'PUT'])
-def REST_JoinEvent():
+def REST_join_event():
     if 'event_id' in request.args:
         if 'user_id' in request.args:
             event = Event.find(request.args['event_id'])
-            event.addUserToEvent(request.args['user_id'])
+            event.add_user_to_event(request.args['user_id'])
 
     response = app.response_class(status = 200)
     return response
@@ -217,7 +216,7 @@ def REST_JoinEvent():
 
 @app.route('/rest/users', methods=['GET'])
 @cross_origin()
-def REST_GetUsername():
+def REST_get_username():
     if 'username' in request.args:
         print('THERE IS A USERNAME')
         if User.get_user_by_username(request.args['username']) is None:

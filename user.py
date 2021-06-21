@@ -7,11 +7,12 @@ cursor = mydb.cursor(buffered=True)
 
 
 class User:
-    def __init__(self, user_id, email, username, password):
+    def __init__(self, user_id, email, username, password, confirmed=False):
         self.user_id = user_id
         self.email = email
         self.username = username
         self.password = password
+        self.confirmed = confirmed
 
     def create(self):
         query = 'INSERT INTO Users (email, username, pwd) VALUES (%s, %s, %s)'
@@ -25,6 +26,17 @@ class User:
     def get_user_by_username(username):
         query = 'SELECT * FROM Users WHERE username = %s'
         value = (username,)
+        cursor.execute(query, value)
+        row = cursor.fetchone()
+        if row is None:
+            return None
+        else:
+            return User(*row)
+
+    @staticmethod
+    def get_user_by_email(email):
+        query = 'SELECT * FROM Users WHERE email = %s'
+        value = (email,)
         cursor.execute(query, value)
         row = cursor.fetchone()
         if row is None:

@@ -50,7 +50,8 @@ else:
          user_id          INT PRIMARY KEY NOT NULL auto_increment,
          email            VARCHAR(60) NOT NULL,
          username         VARCHAR(40) NOT NULL,
-         pwd              VARCHAR(300) NOT NULL);
+         pwd              VARCHAR(300) NOT NULL,
+         confirmed        bool DEFAULT 0);
        ''')
 
 if users_events_check:

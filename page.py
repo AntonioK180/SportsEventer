@@ -1,8 +1,8 @@
 from locator import *
-from element import BasePageElement
+import time
 
 
-class BasePage():
+class BasePage:
     def __init__(self, driver):
         self.driver = driver
 
@@ -28,14 +28,18 @@ class LoginPage(BasePage):
 
 
 class RegisterPage(BasePage):
-    input_email_element = BasePageElement("email")
 
     def is_title_matches(self):
         return "Register" in self.driver.title
 
-    def input_email(self):
-        input_email_element = "valid@gmail.com"
+    def input_invalid_email(self):
+        email = self.driver.find_element(*RegisterPageLocators.EMAIL_INPUT)
+        email.send_keys("invalid")
         element = self.driver.find_element(*RegisterPageLocators.SUBMIT_BUTTON)
         element.click()
-        self.driver.find_element(*RegisterPageLocators.ERROR_MESSAGE)
-        return False
+        time.sleep(1)
+        try:
+            self.driver.find_element(*RegisterPageLocators.ERROR_MESSAGE)
+        except:
+            return False
+        return True

@@ -2,8 +2,8 @@ import unittest
 from selenium import webdriver
 import page
 
-
 PATH = "/Users/Antonio/AppData/Local/chromedriver.exe"
+
 
 class SportsEventerTests(unittest.TestCase):
 
@@ -12,31 +12,27 @@ class SportsEventerTests(unittest.TestCase):
         self.driver = webdriver.Chrome(PATH)
         self.driver.get("http://127.0.0.1:5000/")
 
-    def test_example(self):
-        assert True
-
     def test_title(self):
         main_page = page.MainPage(self.driver)
-        return main_page.is_title_matches()
+        assert main_page.is_title_matches()
 
     def test_login_relocating(self):
         main_page = page.MainPage(self.driver)
         main_page.click_login()
         login_page = page.LoginPage(self.driver)
-        return login_page.is_title_matches()
+        assert login_page.is_title_matches()
 
     def test_register_relocating(self):
         main_page = page.MainPage(self.driver)
         main_page.click_register()
         register_page = page.RegisterPage(self.driver)
-        return register_page.is_title_matches()
+        assert register_page.is_title_matches()
 
-    def test_email_validation(self):
+    def test_email_verification(self):
         main_page = page.MainPage(self.driver)
         main_page.click_register()
         register_page = page.RegisterPage(self.driver)
-        return register_page.input_email()
-
+        assert register_page.input_invalid_email()
 
     def tearDown(self):
         self.driver.close()

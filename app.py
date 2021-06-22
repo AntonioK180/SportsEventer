@@ -251,10 +251,35 @@ def REST_join_event():
     if 'event_id' in request.args:
         if 'user_id' in request.args:
             event = Event.find(request.args['event_id'])
-            event.add_user_to_event(request.args['user_id'])
+            user = User.get_user_by_id(request.args['user_id'])
+            owner = User.get_user_by_username(event.created_by)
+            event_token = serializer.dumps(event.event_id, salt='event-key')
+            user_token = serializer.dumps(user.user_id, salt='user-key')
+            accept_request_url = url_for(
+                'accept_request',
+                event_token=event_token,
+                user_token=user_token,
+                _external=True)
+
+            msg = Message('SportsEventer: Request', sender='sportseventer@gmail.com', recipients=[owner.email])
+            msg.body = "There has been a request for your " + event.sport + " event by " + user.username + ". To accept the request follow " + accept_request_url
+            mail.send(msg)
+            return redirect('/')
 
     response = app.response_class(status=200)
     return response
+
+@app.route('/accept/<event_token>/<user_token>')
+def accept_request(event_token, user_token):
+    event_id = serializer.loads(event_token, salt='event-key', max_age=86400)
+    event = Event.find(event_id)
+    user_id = serializer.loads(user_token, salt='user-key', max_age=86400)
+    user = User.get_user_by_id(user_id)
+    event.add_user_to_event(user_id)
+    msg = Message('SportsEventer: Request', sender='sportseventer@gmail.com', recipients = [user.email])
+    msg.body = "You have been approved for " + event.created_by + "'s " + event.sport + " event."
+    mail.send(msg)
+    return redirect('/')
 
 
 @app.route('/rest/users', methods=['GET'])

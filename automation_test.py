@@ -2,7 +2,7 @@ import unittest
 from selenium import webdriver
 import page
 
-PATH = "/Users/Antonio/AppData/Local/chromedriver.exe"
+PATH = "/home/uuser/Downloads/chromedriver.exe"
 
 
 class SportsEventerTests(unittest.TestCase):

@@ -13,11 +13,18 @@ class User:
         self.confirmed = confirmed
 
     def create(self):
-        query = 'INSERT INTO Users (email, username, pwd) VALUES (%s, %s, %s)'
-        value = (self.email, self.username, self.password)
+        query = 'INSERT INTO Users (email, username, pwd, confirmed) VALUES (%s, %s, %s, %s)'
+        value = (self.email, self.username, self.password, self.confirmed)
         cursor.execute(query, value)
         mydb.commit()
         return 1
+
+    def confirm(self):
+        query = 'UPDATE Users SET confirmed = 1 WHERE email = %s'
+        value = (self.email,)
+        cursor.execute(query, value)
+        mydb.commit()
+        return 1        
 
     @staticmethod
     def get_user_by_username(username):

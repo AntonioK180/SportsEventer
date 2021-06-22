@@ -45,6 +45,7 @@ def register():
             User.hash_password(request.form['pwd'])
         )
         user = User(*values)
+        user.create()
         token = serializer.dumps(user.email, salt='email-confirm-key')
         confirm_url = url_for(
             'confirm_email',
@@ -66,7 +67,7 @@ def confirm_email(token):
 
     user.confirmed = True
 
-    user.create()
+    user.confirm()
     app.logger.info("Successfully registered a new user!")
 
     return redirect('/login')
@@ -81,11 +82,17 @@ def login():
         username = User.get_user_by_username(user)
         if username is not None:
             if username.verify_password(pwd) is True:
-                session['loggedin'] = True
-                session['id'] = username.user_id
-                session['username'] = username.username
-                app.logger.info("Successfully logged in!")
-                return redirect('/')
+                if username.confirmed == 1:
+                    session['loggedin'] = True
+                    session['id'] = username.user_id
+                    session['username'] = username.username
+                    app.logger.info("Successfully logged in!")
+                    return redirect('/')
+                else:
+                    app.logger.info('This account is not confirmed')
+                    flash('This account is not confirmed')
+                    return redirect('/login')
+
             else:
                 app.logger.info("Incorrect password!")
                 flash("This is an incorrect password!")

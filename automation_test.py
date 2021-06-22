@@ -2,7 +2,7 @@ import unittest
 from selenium import webdriver
 import page
 
-PATH = "/home/uuser/Downloads/chromedriver.exe"
+PATH = "/Users/Antonio/AppData/Local/chromedriver.exe"  # /home/uuser/Downloads/chromedriver.exe
 
 
 class SportsEventerTests(unittest.TestCase):
@@ -33,6 +33,27 @@ class SportsEventerTests(unittest.TestCase):
         main_page.click_register()
         register_page = page.RegisterPage(self.driver)
         assert register_page.input_invalid_email()
+
+    def test_user_login(self):
+        main_page = page.MainPage(self.driver)
+        main_page.click_login()
+        login_page = page.LoginPage(self.driver)
+        login_page.login_user()
+        current_page = page.MainPage(self.driver)
+        assert current_page.is_title_matches()
+        assert current_page.is_logged_in()
+
+    def test_new_event(self):
+        main_page = page.MainPage(self.driver)
+        main_page.click_login()
+        login_page = page.LoginPage(self.driver)
+        login_page.login_user()
+        main_page.click_new_event()
+        new_event_page = page.NewEventPage(self.driver)
+        assert new_event_page.is_title_matches()
+        new_event_page.create_event()
+        current_page = page.MainPage(self.driver)
+        assert current_page.is_title_matches()
 
     def tearDown(self):
         self.driver.close()

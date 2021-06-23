@@ -55,6 +55,9 @@ class SportsEventerTests(unittest.TestCase):
         current_page = page.MainPage(self.driver)
         assert current_page.is_title_matches()
 
+    def test_(self):
+        pass
+
     def tearDown(self):
         self.driver.close()
 

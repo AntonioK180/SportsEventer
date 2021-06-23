@@ -25,7 +25,7 @@ This is a visual representation of how the site should look:
   
 
 ### Managment:
-  - GitHub Flow
+  - Gitflow Workflow
   - Kanban (Link to Kanbanaize Board: https://elsysp8.kanbanize.com/ctrl_board/3)
   - Mandatory Code Reviews Before Merging
   - Stand up Meetings for Better Control of the Actual Workflow (2-5 per week)
@@ -62,7 +62,6 @@ This is a visual representation of how the site should look:
   4. Email Notifications:
 	 - for profile verification
 	 - for event joining (either you got approved or rejected)
-	 - for messages in the chat
   
   
 ### Optional:

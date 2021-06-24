@@ -1,4 +1,5 @@
 from flask import Flask
+from flask_cors import CORS
 
 
 app = Flask(__name__)
@@ -10,6 +11,8 @@ app.config['MAIL_USERNAME'] = 'sportseventer@gmail.com'
 app.config['MAIL_PASSWORD'] = 'iskamkni6ka'
 app.config['MAIL_USE_TLS'] = False
 app.config['MAIL_USE_SSL'] = True
+
+cors = CORS(app)
 
 from app import rest_calls
 from app import redirecting_calls

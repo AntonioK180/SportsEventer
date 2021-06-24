@@ -43,6 +43,7 @@ class LoginPage(BasePage):
         username_input.send_keys("as")
         password_input = self.driver.find_element(*LoginpageLocators.PASSWORD_INPUT)
         password_input.send_keys("as")
+        time.sleep(1)
         submit_button = self.driver.find_element(*LoginpageLocators.SUBMIT_BUTTON)
         submit_button.click()
 

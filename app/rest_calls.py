@@ -84,16 +84,6 @@ def REST_edit_event():
             return response
 
 
-@app.route('/rest/events/join', methods=['GET', 'PUT'])
-def REST_join_event():
-    if 'event_id' in request.args:
-        if 'user_id' in request.args:
-            event = Event.find(request.args['event_id'])
-            event.add_user_to_event(request.args['user_id'])
-
-    response = app.response_class(status=200)
-    return response
-
 
 @app.route('/rest/users', methods=['GET'])
 @cross_origin()

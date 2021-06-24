@@ -2,19 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c2943e69-3bb0-4893-8245-a50a8fd72a5d" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/IntegrationTests/path.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/error_handling.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/static/errors.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/templates/404.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/templates/500..html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/IntegrationTests/automation_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/IntegrationTests/automation_test.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/IntegrationTests/page.py" beforeDir="false" afterPath="$PROJECT_DIR$/IntegrationTests/page.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/__init__.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/redirecting_calls.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/redirecting_calls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/rest_calls.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/rest_calls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/static/home.css" beforeDir="false" afterPath="$PROJECT_DIR$/app/static/home.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/run.py" beforeDir="false" afterPath="$PROJECT_DIR$/run.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db_config.py" beforeDir="false" afterPath="$PROJECT_DIR$/db_config.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/event.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/event.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -25,7 +19,6 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Python Script" />
-        <option value="HTML File" />
       </list>
     </option>
   </component>
@@ -46,20 +39,10 @@
   <component name="PropertiesComponent">
     <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="ASKED_MARK_IGNORED_FILES_AS_EXCLUDED" value="true" />
-    <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/run.py" />
-    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
-  </component>
-  <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\Antonio\SchoolProjects\SportsEventer\app\static" />
-      <recent name="C:\Users\Antonio\SchoolProjects\SportsEventer" />
-      <recent name="C:\Users\Antonio\SchoolProjects\SportsEventer\models" />
-      <recent name="C:\Users\Antonio\SchoolProjects\SportsEventer\app" />
-      <recent name="C:\Users\Antonio\SchoolProjects\SportsEventer\IntegrationTests" />
-    </key>
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../SportsEventerRabotix" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
   <component name="RunManager" selected="Python tests.Unittests for automation_test.SportsEventerTests">
     <configuration name="run" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
@@ -68,7 +51,7 @@
       <option name="PARENT_ENVS" value="true" />
       <envs>
         <env name="PYTHONUNBUFFERED" value="1" />
-        <env name="FLASK_APP" value="app.py" />
+        <env name="FLASK_APP" value="run.py" />
         <env name="FLASK_DEBUG" value="1" />
         <env name="FLASK_ENV" value="development" />
       </envs>
@@ -86,48 +69,6 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="Unittests for IntegrationTests.automation_test.SportsEventerTests.test_email_verification" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
-      <module name="SportsEventer" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="_new_additionalArguments" value="&quot;&quot;" />
-      <option name="_new_target" value="&quot;IntegrationTests.automation_test.SportsEventerTests.test_email_verification&quot;" />
-      <option name="_new_targetType" value="&quot;PYTHON&quot;" />
-      <method v="2" />
-    </configuration>
-    <configuration name="Unittests for IntegrationTests.automation_test.SportsEventerTests.test_new_event" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
-      <module name="SportsEventer" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="_new_additionalArguments" value="&quot;&quot;" />
-      <option name="_new_target" value="&quot;IntegrationTests.automation_test.SportsEventerTests.test_new_event&quot;" />
-      <option name="_new_targetType" value="&quot;PYTHON&quot;" />
-      <method v="2" />
-    </configuration>
-    <configuration name="Unittests for IntegrationTests.automation_test.SportsEventerTests.test_user_login" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
-      <module name="SportsEventer" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="_new_additionalArguments" value="&quot;&quot;" />
-      <option name="_new_target" value="&quot;IntegrationTests.automation_test.SportsEventerTests.test_user_login&quot;" />
-      <option name="_new_targetType" value="&quot;PYTHON&quot;" />
-      <method v="2" />
-    </configuration>
     <configuration name="Unittests for automation_test.SportsEventerTests" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
       <module name="SportsEventer" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -142,20 +83,62 @@
       <option name="_new_targetType" value="&quot;PYTHON&quot;" />
       <method v="2" />
     </configuration>
+    <configuration name="Unittests for automation_test.SportsEventerTests.test_email_verification" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
+      <module name="SportsEventer" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;automation_test.SportsEventerTests.test_email_verification&quot;" />
+      <option name="_new_targetType" value="&quot;PYTHON&quot;" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Unittests for automation_test.SportsEventerTests.test_register_relocating" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
+      <module name="SportsEventer" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;automation_test.SportsEventerTests.test_register_relocating&quot;" />
+      <option name="_new_targetType" value="&quot;PYTHON&quot;" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Unittests for automation_test.SportsEventerTests.test_user_login" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
+      <module name="SportsEventer" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/IntegrationTests" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;automation_test.SportsEventerTests.test_user_login&quot;" />
+      <option name="_new_targetType" value="&quot;PYTHON&quot;" />
+      <method v="2" />
+    </configuration>
     <list>
       <item itemvalue="Python.run" />
-      <item itemvalue="Python tests.Unittests for IntegrationTests.automation_test.SportsEventerTests.test_email_verification" />
-      <item itemvalue="Python tests.Unittests for IntegrationTests.automation_test.SportsEventerTests.test_new_event" />
-      <item itemvalue="Python tests.Unittests for IntegrationTests.automation_test.SportsEventerTests.test_user_login" />
       <item itemvalue="Python tests.Unittests for automation_test.SportsEventerTests" />
+      <item itemvalue="Python tests.Unittests for automation_test.SportsEventerTests.test_email_verification" />
+      <item itemvalue="Python tests.Unittests for automation_test.SportsEventerTests.test_register_relocating" />
+      <item itemvalue="Python tests.Unittests for automation_test.SportsEventerTests.test_user_login" />
     </list>
     <recent_temporary>
       <list>
         <item itemvalue="Python tests.Unittests for automation_test.SportsEventerTests" />
         <item itemvalue="Python.run" />
-        <item itemvalue="Python tests.Unittests for IntegrationTests.automation_test.SportsEventerTests.test_new_event" />
-        <item itemvalue="Python tests.Unittests for IntegrationTests.automation_test.SportsEventerTests.test_user_login" />
-        <item itemvalue="Python tests.Unittests for IntegrationTests.automation_test.SportsEventerTests.test_email_verification" />
+        <item itemvalue="Python tests.Unittests for automation_test.SportsEventerTests.test_user_login" />
+        <item itemvalue="Python tests.Unittests for automation_test.SportsEventerTests.test_email_verification" />
+        <item itemvalue="Python tests.Unittests for automation_test.SportsEventerTests.test_register_relocating" />
       </list>
     </recent_temporary>
   </component>
@@ -193,16 +176,5 @@
       </map>
     </option>
     <option name="oldMeFiltersMigrated" value="true" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <default-breakpoints>
-        <breakpoint type="python-exception">
-          <properties notifyOnTerminate="true" exception="BaseException">
-            <option name="notifyOnTerminate" value="true" />
-          </properties>
-        </breakpoint>
-      </default-breakpoints>
-    </breakpoint-manager>
   </component>
 </project>

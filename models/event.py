@@ -98,6 +98,7 @@ class Event:
         cur.execute(query, value)
         mydb.commit()
 
+
     def delete(self):
         query = "DELETE FROM Events WHERE event_id = %s"
         value = (self.event_id,)

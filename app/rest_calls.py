@@ -1,9 +1,9 @@
 from app import app
-from flask import render_template, request, redirect, url_for, session, flash
-from event import EventEncoder, Event
-from user import User
+from flask import request
+from models.event import EventEncoder, Event
+from models.user import User
 import json
-from flask_cors import CORS, cross_origin
+from flask_cors import cross_origin
 
 
 @app.route('/rest/events', methods=['GET'])
@@ -23,7 +23,6 @@ def REST_get_events():
             mimetype='application/json'
         )
     return response
-
 
 
 @app.route('/rest/events/getjoined', methods=['GET'])
@@ -83,8 +82,6 @@ def REST_edit_event():
                 mimetype='application/json'
             )
             return response
-        elif request.method == 'POST':
-            data = request.get_json(force=True)
 
 
 @app.route('/rest/events/join', methods=['GET', 'PUT'])

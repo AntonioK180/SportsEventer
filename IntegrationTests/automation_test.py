@@ -1,8 +1,12 @@
 import unittest
+import yaml
 from selenium import webdriver
 import page
 
-PATH = "/Users/Antonio/AppData/Local/chromedriver.exe"  # /home/uuser/Downloads/chromedriver.exe
+
+path_reader = yaml.load(open('path.yaml'))
+
+PATH = path_reader['chromedriver_path']  # /home/uuser/Downloads/chromedriver.exe
 
 
 class SportsEventerTests(unittest.TestCase):
@@ -54,6 +58,9 @@ class SportsEventerTests(unittest.TestCase):
         new_event_page.create_event()
         current_page = page.MainPage(self.driver)
         assert current_page.is_title_matches()
+
+    def test_(self):
+        pass
 
     def tearDown(self):
         self.driver.close()

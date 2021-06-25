@@ -46,7 +46,7 @@ function loadAllEvents(allEvents){
           type: "PUT",
           async: false
         });
-        alert("YOU SUCCESSFULLY JOINED " + allEvents[i].created_by + "'s " + allEvents[i].sport + " EVENT!");
+        alert("YOU SUCCESSFULLY REQUESTED TO JOIN " + allEvents[i].created_by + "'s " + allEvents[i].sport + " EVENT!");
         location.reload();
       }
 

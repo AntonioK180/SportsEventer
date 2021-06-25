@@ -170,7 +170,7 @@ def REST_join_event():
                 _external=True)
 
             msg = Message('SportsEventer: Request', sender='sportseventer@gmail.com', recipients=[owner.email])
-            msg.body = "There has been a request for your " + event.sport + " event by " + user.username + ". To accept the request follow " + accept_request_url
+            msg.body = "There has been a request for your " + event.sport + " event by " + user.username + ". To accept the request follow: " + accept_request_url + " \nYou can contact with " + user.username + " at the following email: " + user.email + "."
             mail.send(msg)
             return redirect('/')
 

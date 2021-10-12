@@ -7,35 +7,35 @@
 <body>
     <div id="cometchat"></div>
     <script>
-    window.addEventListener('DOMContentLoaded', (event) => {
-        CometChatWidget.init({
-            "appID": "33445dbeae9e1a3",
-            "appRegion": "eu",
-            "authKey": "69bbe8b391b18085542c82234f21164b52577336"
-        }).then(response => {
-            console.log("Initialization completed successfully");
-            //You can now call login function.
-            CometChatWidget.login({
-                "uid": "superhero5"
+        window.addEventListener('DOMContentLoaded', (event) => {
+            CometChatWidget.init({
+                "appID": "33445dbeae9e1a3",
+                "appRegion": "eu",
+                "authKey": "69bbe8b391b18085542c82234f21164b52577336"
             }).then(response => {
-                CometChatWidget.launch({
-                    "widgetID": "cb24f737-99c8-49b8-b684-5d00062b0e6f",
-                    "target": "#cometchat",
-                    "roundedCorners": "true",
-                    "height": "600px",
-                    "width": "800px",
-                    "defaultID": 'superhero1', //default UID (user) or GUID (group) to show,
-                    "defaultType": 'user' //user or group
+                console.log("Initialization completed successfully");
+                //You can now call login function.
+                CometChatWidget.login({
+                    "uid": "superhero5"
+                }).then(response => {
+                    CometChatWidget.launch({
+                        "widgetID": "cb24f737-99c8-49b8-b684-5d00062b0e6f",
+                        "target": "#cometchat",
+                        "roundedCorners": "true",
+                        "height": "600px",
+                        "width": "800px",
+                        "defaultID": 'superhero1', //default UID (user) or GUID (group) to show,
+                        "defaultType": 'user' //user or group
+                    });
+                }, error => {
+                    console.log("User login failed with error:", error);
+                    //Check the reason for error and take appropriate action.
                 });
             }, error => {
-                console.log("User login failed with error:", error);
+                console.log("Initialization failed with error:", error);
                 //Check the reason for error and take appropriate action.
             });
-        }, error => {
-            console.log("Initialization failed with error:", error);
-            //Check the reason for error and take appropriate action.
         });
-    });
     </script>
 </body>
 

@@ -1,20 +1,20 @@
-body{
-  display: flex;
-  overflow: auto;
-  flex-direction: column;
-  margin: 0;
-  min-height: 100vh;
-  background-image: url(images/background.jpg);
-  background-attachment: fixed;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
+body {
+    display: flex;
+    overflow: auto;
+    flex-direction: column;
+    margin: 0;
+    min-height: 100vh;
+    background-image: url(images/background.jpg);
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
-div{
-  position: center;
-  text-align: center;
-  background-color: red;
-  margin-top: 40vh;
-  padding-bottom: 26px;
+div {
+    position: center;
+    text-align: center;
+    background-color: red;
+    margin-top: 40vh;
+    padding-bottom: 26px;
 }
